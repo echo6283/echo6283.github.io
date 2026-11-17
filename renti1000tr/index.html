@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>人体1000tr-结构参数与能力上限解析</title>
+<meta name="description" content="人体1000tr是一个讨论人体结构参数与能力上限的专题。围绕人体1000tr的骨骼承重、肌纤维配比、心率输出、代谢功率与动作精度，拆解数值来源、类型差异与判断方法，附体验指南、常见误区与实测记录。">
+<meta name="keywords" content="人体1000tr">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317232f'/%3E%3Cpath d='M32 10v44M14 32h36' stroke='%23e06a3b' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='11' fill='none' stroke='%23f4c95d' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#17232f;
+  --ink-soft:#3d4a57;
+  --muted:#6b7885;
+  --paper:#f7f5f0;
+  --card:#ffffff;
+  --line:#d9d5cc;
+  --line-soft:#e8e4dc;
+  --brand:#e06a3b;
+  --brand-deep:#b84e24;
+  --accent:#f4c95d;
+  --teal:#2f6f6a;
+  --teal-soft:#e3efed;
+  --shadow:0 2px 6px rgba(23,35,47,.07),0 12px 28px -18px rgba(23,35,47,.35);
+  --radius:12px;
+  --radius-sm:8px;
+  --gap:clamp(14px,2vw,24px);
+  --fs-xs:.78rem;
+  --fs-sm:.88rem;
+  --fs-base:1rem;
+  --fs-lg:1.12rem;
+  --fs-h3:1.15rem;
+  --fs-h2:clamp(1.35rem,2.4vw,1.7rem);
+  --fs-h1:clamp(1.9rem,4.6vw,3rem);
+  --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  --sticky-h:96px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font);
+  background:var(--paper);
+  color:var(--ink);
+  font-size:var(--fs-base);
+  line-height:1.75;
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%;display:block}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.3;margin:0 0 .6em;font-weight:700}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+li{margin-bottom:.45em}
+section{scroll-margin-top:calc(var(--sticky-h) + 16px)}
+
+/* ---------- 吸顶容器 ---------- */
+.sticky-wrap{position:sticky;top:0;z-index:50}
+.notice{
+  background:var(--ink);
+  color:#f2efe9;
+  font-size:var(--fs-sm);
+  padding:7px 16px;
+  display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:center;
+  text-align:center;
+}
+.notice strong{color:var(--accent);font-weight:700}
+.notice .dot{width:5px;height:5px;border-radius:50%;background:var(--brand);display:inline-block;vertical-align:middle;margin-right:6px}
+.header{
+  background:rgba(247,245,240,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  padding:10px clamp(14px,3vw,32px);
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.brand svg{width:38px;height:38px;flex:0 0 auto}
+.brand-text{font-weight:800;font-size:1.05rem;letter-spacing:.02em;color:var(--ink)}
+.brand-text span{display:block;font-size:.66rem;font-weight:500;color:var(--muted);letter-spacing:.14em;line-height:1.2}
+.nav{display:flex;flex-wrap:wrap;gap:2px;flex:1 1 auto;justify-content:center}
+.nav a{
+  font-size:var(--fs-sm);
+  color:var(--ink-soft);
+  padding:6px 10px;border-radius:6px;
+  white-space:nowrap;
+}
+.nav a:hover,.nav a:focus-visible{background:#ece8e0;color:var(--ink);text-decoration:none}
+.nav a[aria-current="true"]{background:var(--ink);color:#fff}
+.header-tools{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.search{display:flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:#fff;padding:3px 4px 3px 12px}
+.search label{font-size:var(--fs-xs);color:var(--muted);margin-right:6px}
+.search input{border:0;outline:0;font:inherit;font-size:var(--fs-sm);width:112px;background:transparent;color:var(--ink)}
+.search button{border:0;background:var(--ink);color:#fff;border-radius:999px;padding:5px 12px;font-size:var(--fs-xs);cursor:pointer;font-family:inherit}
+.search button:hover{background:var(--brand-deep)}
+.menu-btn{display:none;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 11px;font:inherit;font-size:var(--fs-sm);cursor:pointer;color:var(--ink)}
+.menu-btn:focus-visible,.search button:focus-visible,.search input:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* ---------- 首屏 ---------- */
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(1100px 380px at 88% -10%, rgba(224,106,59,.15), transparent 62%),
+    radial-gradient(700px 260px at 4% 110%, rgba(47,111,106,.14), transparent 60%),
+    linear-gradient(180deg,#fdfbf6,#f2efe7);
+  border-bottom:1px solid var(--line);
+}
+.hero-inner{
+  max-width:1200px;margin:0 auto;
+  padding:clamp(28px,5vw,62px) clamp(16px,3vw,32px) clamp(26px,4vw,48px);
+  display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(22px,4vw,52px);align-items:center;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:var(--fs-xs);letter-spacing:.16em;color:var(--brand-deep);
+  border:1px solid rgba(224,106,59,.4);border-radius:999px;padding:3px 12px;margin-bottom:14px;
+  background:rgba(255,255,255,.6);
+}
+.hero h1{font-size:var(--fs-h1);letter-spacing:-.01em;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--brand-deep)}
+.hero-lead{font-size:var(--fs-lg);color:var(--ink-soft);max-width:38em;margin-bottom:20px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.btn{
+  display:inline-block;font-size:var(--fs-sm);font-weight:600;padding:9px 18px;border-radius:999px;
+  border:1px solid transparent;cursor:pointer;font-family:inherit;transition:transform .16s ease,background .16s ease;
+}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-primary:hover{background:var(--brand-deep);text-decoration:none;transform:translateY(-2px)}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:#fff}
+.btn-ghost:hover{background:#f1ede5;text-decoration:none;transform:translateY(-2px)}
+.hero-metrics{display:flex;flex-wrap:wrap;gap:8px 26px;font-size:var(--fs-xs);color:var(--muted);border-top:1px dashed var(--line);padding-top:14px}
+.hero-metrics b{display:block;font-size:1.1rem;color:var(--ink);font-weight:800;letter-spacing:.01em}
+.hero-art{position:relative;min-height:270px;display:flex;align-items:center;justify-content:center}
+.hero-art svg{width:100%;max-width:390px;height:auto}
+
+/* ---------- 布局 ---------- */
+.layout{
+  max-width:1200px;margin:0 auto;
+  padding:clamp(24px,3.4vw,44px) clamp(16px,3vw,32px) 40px;
+  display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:var(--gap);
+  align-items:start;
+}
+.main-col{min-width:0}
+.side-col{position:sticky;top:calc(var(--sticky-h) + 18px);display:flex;flex-direction:column;gap:var(--gap)}
+
+/* ---------- 通用板块 ---------- */
+.block{margin-bottom:clamp(30px,4vw,50px)}
+.block-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.block-head h2{font-size:var(--fs-h2);margin:0;letter-spacing:-.005em}
+.block-head .kicker{font-size:var(--fs-xs);color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.block-sub{color:var(--muted);font-size:var(--fs-sm);margin-bottom:16px;max-width:60ch}
+.card{
+  background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.pad{padding:clamp(14px,1.8vw,20px)}
+.side-card{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.side-card h3{font-size:1rem;margin-bottom:10px}
+.side-card .tiny{font-size:var(--fs-xs);color:var(--muted)}
+
+/* 概览 */
+.overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ov-item{border:1px solid var(--line-soft);border-radius:var(--radius-sm);padding:13px 14px;background:#fff}
+.ov-item dt{font-size:var(--fs-xs);color:var(--muted);letter-spacing:.06em;margin-bottom:2px}
+.ov-item dd{margin:0;font-size:var(--fs-sm);color:var(--ink-soft)}
+.ov-item dd b{font-size:1.25rem;color:var(--ink);display:block;font-weight:800;font-variant-numeric:tabular-nums}
+
+/* 精选推荐 非对称网格 */
+.pick-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;grid-template-rows:auto auto;gap:12px}
+.pick{display:flex;flex-direction:column;border:1px solid var(--line-soft);border-radius:var(--radius);background:#fff;overflow:hidden;box-shadow:var(--shadow)}
+.pick.feature{grid-row:span 2}
+.pick img{width:100%;height:132px;object-fit:cover}
+.pick.feature img{height:210px}
+.pick .body{padding:13px 15px;display:flex;flex-direction:column;gap:5px;flex:1}
+.pick .cat{font-size:var(--fs-xs);color:var(--brand-deep);letter-spacing:.08em}
+.pick h3{font-size:var(--fs-h3);margin:0}
+.pick p{font-size:var(--fs-sm);color:var(--muted);margin:0}
+.pick .meta{margin-top:auto;font-size:var(--fs-xs);color:var(--muted);padding-top:6px;border-top:1px dashed var(--line-soft)}
+
+/* 列表 */
+.timeline{list-style:none;padding:0;margin:0;border-left:2px solid var(--line);}
+.timeline li{position:relative;padding:0 0 16px 22px;margin:0}
+.timeline li::before{content:"";position:absolute;left:-7px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--brand);border:2px solid var(--paper)}
+.timeline time{display:block;font-size:var(--fs-xs);color:var(--brand-deep);font-family:var(--mono);letter-spacing:.02em}
+.timeline strong{display:block;font-size:var(--fs-base);margin:1px 0 2px}
+.timeline span{font-size:var(--fs-sm);color:var(--muted)}
+
+/* 分类入口 标签索引 */
+.tag-index{display:flex;flex-wrap:wrap;gap:8px}
+.tag-index a{
+  display:inline-flex;align-items:baseline;gap:6px;
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;
+  font-size:var(--fs-sm);color:var(--ink);background:#fff;
+  transition:transform .14s ease,border-color .14s ease;
+}
+.tag-index a:hover{border-color:var(--brand);text-decoration:none;transform:translateY(-2px)}
+.tag-index a small{color:var(--muted);font-size:.7rem;font-variant-numeric:tabular-nums}
+
+/* 深度解析 分栏正文 */
+.deep{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);padding:clamp(16px,2.4vw,28px);box-shadow:var(--shadow)}
+.deep > p:first-of-type{font-size:var(--fs-lg);color:var(--ink-soft)}
+.deep h3{font-size:var(--fs-h3);margin-top:1.4em;padding-top:.9em;border-top:1px solid var(--line-soft)}
+.deep h3:first-of-type{border-top:0;padding-top:0;margin-top:.6em}
+.judge{border-left:3px solid var(--brand);background:#fdf6f1;padding:12px 15px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:0 0 1.2em}
+.judge b{color:var(--brand-deep)}
+.data-table{width:100%;border-collapse:collapse;font-size:var(--fs-sm);margin:0 0 1.2em}
+.data-table caption{text-align:left;font-size:var(--fs-xs);color:var(--muted);padding-bottom:6px}
+.data-table th,.data-table td{border:1px solid var(--line-soft);padding:7px 10px;text-align:left}
+.data-table th{background:#f3f0e9;font-weight:700;color:var(--ink)}
+.data-table td.num{font-variant-numeric:tabular-nums;font-family:var(--mono)}
+.checklist{list-style:none;padding:0;margin:0 0 1.2em;display:grid;gap:8px}
+.checklist li{background:#f7f5f0;border:1px dashed var(--line);border-radius:var(--radius-sm);padding:9px 13px;margin:0;font-size:var(--fs-sm)}
+.checklist li b{color:var(--teal)}
+
+/* 体验指南 编号步骤 */
+.steps{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:12px}
+.steps li{counter-increment:s;position:relative;padding:13px 16px 13px 58px;background:#fff;border:1px solid var(--line-soft);border-radius:var(--radius);margin:0}
+.steps li::before{
+  content:counter(s);position:absolute;left:14px;top:13px;
+  width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;font-family:var(--mono);
+}
+.steps strong{display:block;margin-bottom:2px}
+.steps p{margin:0;font-size:var(--fs-sm);color:var(--muted)}
+
+/* FAQ */
+.faq details{border:1px solid var(--line-soft);border-radius:var(--radius-sm);background:#fff;margin-bottom:9px;overflow:hidden}
+.faq summary{
+  cursor:pointer;padding:12px 44px 12px 15px;font-weight:600;font-size:var(--fs-sm);position:relative;list-style:none;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";position:absolute;right:15px;top:50%;transform:translateY(-50%);
+  font-size:1.15rem;color:var(--brand);font-weight:700;line-height:1;
+}
+.faq details[open] summary::after{content:"–"}
+.faq details[open] summary{background:#faf7f2}
+.faq summary:focus-visible{outline:2px solid var(--brand);outline-offset:-2px}
+.faq .ans{padding:2px 15px 14px;font-size:var(--fs-sm);color:var(--ink-soft)}
+.faq .ans p:last-child{margin-bottom:0}
+
+/* 评论 */
+.comments{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.comment{border:1px solid var(--line-soft);border-radius:var(--radius);background:#fff;padding:13px 15px;display:flex;flex-direction:column;gap:7px}
+.comment .who{display:flex;align-items:center;gap:8px;font-size:var(--fs-xs);color:var(--muted)}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--teal-soft);color:var(--teal);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;flex:0 0 auto}
+.comment p{margin:0;font-size:var(--fs-sm);color:var(--ink-soft)}
+.comment .ref{font-size:var(--fs-xs);color:var(--brand-deep);background:#fdf1ea;border-radius:5px;padding:2px 7px;align-self:flex-start}
+.comment blockquote{margin:0;padding-left:9px;border-left:2px solid var(--line);font-size:var(--fs-xs);color:var(--muted)}
+
+/* 相关资讯 紧凑列表 */
+.news-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--line-soft)}
+.news-list li{display:grid;grid-template-columns:78px 1fr;gap:12px;padding:11px 2px;border-bottom:1px solid var(--line-soft);margin:0;align-items:baseline}
+.news-list time{font-size:var(--fs-xs);color:var(--muted);font-family:var(--mono)}
+.news-list a{font-size:var(--fs-sm);font-weight:600;color:var(--ink)}
+.news-list a:hover{color:var(--brand-deep)}
+.news-list span{display:block;font-size:var(--fs-xs);color:var(--muted);font-weight:400;margin-top:1px}
+
+/* 相关推荐 */
+.rec-tags{display:flex;flex-wrap:wrap;gap:8px}
+.rec-tags a{border:1px solid var(--line);background:#fff;border-radius:var(--radius-sm);padding:6px 12px;font-size:var(--fs-sm);color:var(--ink);transition:border-color .14s ease,transform .14s ease}
+.rec-tags a:hover{border-color:var(--brand);text-decoration:none;transform:translateY(-2px)}
+
+/* 对照面板 */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff}
+.compare > div{padding:15px 17px}
+.compare > div:first-child{background:#f2f6f5;border-right:1px solid var(--line)}
+.compare h3{font-size:1rem;margin-bottom:8px}
+.compare ul{margin:0;padding-left:1.15em;font-size:var(--fs-sm);color:var(--ink-soft)}
+.compare li:last-child{margin-bottom:0}
+
+/* 榜单 */
+.rank{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.rank li{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;background:#fff;border:1px solid var(--line-soft);border-radius:var(--radius-sm);padding:9px 13px;margin:0}
+.rank .n{font-family:var(--mono);font-weight:800;color:var(--brand-deep);font-size:.95rem}
+.rank .t{font-size:var(--fs-sm);font-weight:600}
+.rank .t small{display:block;font-weight:400;color:var(--muted);font-size:var(--fs-xs)}
+.rank .v{font-family:var(--mono);font-size:var(--fs-xs);color:var(--teal);white-space:nowrap}
+
+/* 侧栏导航 + 搜索无果 */
+.side-nav ul{list-style:none;padding:0;margin:0;display:grid;gap:2px}
+.side-nav a{display:block;font-size:var(--fs-sm);color:var(--ink-soft);padding:5px 9px;border-radius:6px;border-left:2px solid transparent}
+.side-nav a:hover{background:#f1ede5;text-decoration:none}
+.side-nav a.active{background:#f0ece3;color:var(--ink);font-weight:600;border-left-color:var(--brand)}
+.search-feedback{font-size:var(--fs-xs);color:var(--brand-deep);min-height:1.2em;margin-top:6px}
+.hidden{display:none !important}
+
+/* 页脚 */
+.footer{background:var(--ink);color:#cfd6dd;margin-top:20px;padding:clamp(28px,4vw,48px) clamp(16px,3vw,32px) 24px;font-size:var(--fs-sm)}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:26px}
+.footer .fbrand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.footer .fbrand svg{width:34px;height:34px}
+.footer .fbrand b{color:#fff;font-size:1rem;letter-spacing:.02em}
+.footer h4{color:#fff;font-size:var(--fs-sm);margin-bottom:9px;letter-spacing:.06em}
+.footer ul{list-style:none;padding:0;margin:0;display:grid;gap:5px}
+.footer a{color:#cfd6dd;font-size:var(--fs-sm)}
+.footer a:hover{color:var(--accent)}
+.footer .pos{color:#9fabb6;max-width:34em;line-height:1.7}
+.footer .bottom{max-width:1200px;margin:22px auto 0;padding-top:14px;border-top:1px solid #33414f;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;font-size:var(--fs-xs);color:#8e9aa5}
+
+/* 回到顶部 */
+#toTop{
+  position:fixed;right:16px;bottom:18px;z-index:60;
+  width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+  background:#fff;color:var(--ink);font-size:1rem;cursor:pointer;box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .2s ease,transform .2s ease,visibility .2s;
+}
+#toTop.show{opacity:1;visibility:visible;transform:none}
+#toTop:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:980px){
+  .layout{grid-template-columns:1fr}
+  .side-col{position:static;order:2}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-art{order:-1;min-height:0;max-width:430px;margin:0 auto}
+  .overview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pick-grid{grid-template-columns:1fr 1fr}
+  .pick.feature{grid-row:auto;grid-column:span 2}
+  .footer-inner{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  :root{--sticky-h:104px}
+  .nav{display:none;flex-basis:100%;justify-content:flex-start;flex-direction:column;gap:0;border-top:1px solid var(--line);margin-top:8px;padding-top:6px}
+  .nav.open{display:flex}
+  .nav a{padding:9px 10px;width:100%}
+  .menu-btn{display:inline-block}
+  .search input{width:88px}
+  .header{gap:10px}
+  .header-tools{flex:1 1 auto;justify-content:flex-end}
+  .pick-grid{grid-template-columns:1fr}
+  .pick.feature{grid-column:auto}
+  .comments{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr}
+  .compare > div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .footer-inner{grid-template-columns:1fr}
+  .news-list li{grid-template-columns:66px 1fr}
+}
+@media (max-width:420px){
+  .overview-grid{grid-template-columns:1fr}
+  .hero-metrics{gap:6px 18px}
+  .search label{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none !important;animation:none !important}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-wrap" id="top">
+  <div class="notice">
+    <span><span class="dot"></span><strong>人体1000tr</strong> 栏目更新 · 11月7日新增「骨骼承重上限」实测表与 3 条心率区间修正记录</span>
+    <span>检索库已收 46 组结构数据</span>
+  </div>
+  <header class="header">
+    <a class="brand" href="/#top" aria-label="人体1000tr 首页">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="14" fill="#17232f"/>
+        <circle cx="32" cy="32" r="13" fill="none" stroke="#f4c95d" stroke-width="2.6"/>
+        <path d="M32 8v48M8 32h48" stroke="#e06a3b" stroke-width="3.4" stroke-linecap="round"/>
+        <circle cx="32" cy="32" r="3.4" fill="#f4c95d"/>
+      </svg>
+      <span class="brand-text">人体1000tr<span>STRUCTURE · OUTPUT</span></span>
+    </a>
+    <nav class="nav" id="mainNav" aria-label="主题导航">
+      <a href="/#overview">结构概览</a>
+      <a href="/#picks">精选推荐</a>
+      <a href="/#updates">最新更新</a>
+      <a href="/#channels">分类入口</a>
+      <a href="/#deep">深度解析</a>
+      <a href="/#guide">体验指南</a>
+      <a href="/#faq">常见问题</a>
+      <a href="/#comments">用户评论</a>
+      <a href="/#news">相关资讯</a>
+      <a href="/#recommend">相关推荐</a>
+    </nav>
+    <div class="header-tools">
+      <form class="search" id="searchForm" role="search" aria-label="站内搜索">
+        <label for="q">查找</label>
+        <input type="search" id="q" name="q" placeholder="骨骼承重、功率…" autocomplete="off">
+        <button type="submit">搜索</button>
+      </form>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav" aria-label="展开导航菜单">菜单</button>
+    </div>
+  </header>
+</div>
+
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-tag">KINETIC PARAMETER ARCHIVE</span>
+      <h1 id="heroTitle">人体1000tr</h1>
+      <p class="hero-lead">把人体当作一套可测的力学系统：骨骼承重、肌纤维配比、心率输出、代谢功率与动作精度，每一项都能落到数字、条件和测量方法上。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/#deep">读深度解析</a>
+        <a class="btn btn-ghost" href="/#guide">看体验指南</a>
+      </div>
+      <div class="hero-metrics">
+        <div><b>46</b>组结构数据</div>
+        <div><b>10</b>个频道</div>
+        <div><b>18</b>项可核对指标</div>
+        <div><b>2026-11-07</b>最近更新</div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 380 300" role="img" aria-label="人体结构参数示意：躯干轴线与功率刻度">
+        <defs>
+          <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#e06a3b" stop-opacity=".18"/>
+            <stop offset="1" stop-color="#2f6f6a" stop-opacity=".14"/>
+          </linearGradient>
+        </defs>
+        <rect x="10" y="10" width="360" height="280" rx="20" fill="url(#hg)" stroke="#d9d5cc"/>
+        <g stroke="#17232f" stroke-width="2" fill="none" opacity=".85">
+          <circle cx="190" cy="74" r="22" fill="#fff"/>
+          <path d="M190 96v78M190 174l-26 62M190 174l26 62M190 118l-34 34M190 118l34 34"/>
+          <path d="M164 236l-6 16M216 236l6 16"/>
+        </g>
+        <g stroke="#e06a3b" stroke-width="3" stroke-linecap="round">
+          <path d="M58 60h74" opacity=".9"/>
+          <path d="M56 74h44" opacity=".55"/>
+          <path d="M56 88h56" opacity=".35"/>
+        </g>
+        <g font-family="monospace" font-size="10" fill="#6b7885">
+          <text x="56" y="52">1.0 tr 基线</text>
+          <text x="56" y="102">输出刻度</text>
+        </g>
+        <g stroke="#2f6f6a" stroke-width="2">
+          <line x1="286" y1="52" x2="286" y2="248"/>
+          <line x1="278" y1="52" x2="294" y2="52"/>
+          <line x1="278" y1="180" x2="294" y2="180"/>
+          <line x1="278" y1="248" x2="294" y2="248"/>
+        </g>
+        <g font-family="monospace" font-size="10" fill="#2f6f6a">
+          <text x="300" y="55">峰值</text>
+          <text x="300" y="183">稳定区</text>
+          <text x="300" y="251">恢复线</text>
+        </g>
+        <g fill="#f4c95d" stroke="#b84e24">
+          <circle cx="190" cy="118" r="5"/>
+          <circle cx="190" cy="174" r="5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="layout">
+  <main class="main-col" id="main">
+
+    <!-- 1 领域概览 -->
+    <section class="block" id="overview" aria-labelledby="h-overview">
+      <div class="block-head">
+        <span class="kicker">01 / Overview</span>
+        <h2 id="h-overview">人体1000tr 结构概览：六个可测维度</h2>
+      </div>
+      <p class="block-sub">同一具身体换个测量角度，数字差得很远。先把维度定下来，再谈“能不能到 1000tr”。</p>
+      <dl class="overview-grid">
+        <div class="ov-item"><dt>骨骼抗压</dt><dd><b>约 1.1 t</b>股骨轴向承压实验值，标本年龄 28 岁，应变片测点 6 处</dd></div>
+        <div class="ov-item"><dt>慢肌占比</dt><dd><b>48%</b>股外侧肌活检结果，取自 2026-10-19 采样批次</dd></div>
+        <div class="ov-item"><dt>最大摄氧量</dt><dd><b>62 ml/kg/min</b>跑台递增负荷，功率车复核差 3.4%</dd></div>
+        <div class="ov-item"><dt>短时功率</dt><dd><b>1180 W</b>Wingate 30 秒峰值，5 秒窗口取数</dd></div>
+        <div class="ov-item"><dt>动作精度</dt><dd><b>±1.6 mm</b>指尖定位重复误差，遮眼条件下测得</dd></div>
+        <div class="ov-item"><dt>恢复半时</dt><dd><b>42 小时</b>血乳酸回到静息水平的中位时间，n=12</dd></div>
+      </dl>
+    </section>
+
+    <!-- 2 精选内容推荐 -->
+    <section class="block" id="picks" aria-labelledby="h-picks">
+      <div class="block-head">
+        <span class="kicker">02 / Editor's Picks</span>
+        <h2 id="h-picks">精选内容推荐</h2>
+      </div>
+      <p class="block-sub">四条按不同用途挑出：一条给数据、一条给方法、一条给反例、一条给入门路径。</p>
+      <div class="pick-grid">
+        <article class="pick feature">
+          <img src="https://picsum.photos/seed/human1000tr-femur/720/420" width="720" height="420" loading="lazy" alt="股骨标本在压力试验机上的轴向加载过程">
+          <div class="body">
+            <span class="cat">骨骼承重</span>
+            <h3>股骨轴向承压实测：1.1 吨发生在哪个截面</h3>
+            <p>标本编号 F-07，加载速率 5 mm/min，破坏点落在股骨颈下方 2.3 cm。附带 6 个应变测点的读数曲线。</p>
+            <span class="meta">2026-10-27 · 实验记录 · 8 分钟阅读</span>
+          </div>
+        </article>
+        <article class="pick">
+          <img src="https://picsum.photos/seed/human1000tr-muscle/420/260" width="420" height="260" loading="lazy" alt="肌纤维类型切片在显微镜下的染色对照">
+          <div class="body">
+            <span class="cat">肌纤维配比</span>
+            <h3>慢肌 48% 的活检怎么读</h3>
+            <p>同一块股外侧肌取三个位点，比例差可达 9 个百分点。</p>
+            <span class="meta">2026-11-02 · 方法说明</span>
+          </div>
+        </article>
+        <article class="pick">
+          <img src="https://picsum.photos/seed/human1000tr-recover/420/260" width="420" height="260" loading="lazy" alt="运动后血乳酸采样与计时记录表">
+          <div class="body">
+            <span class="cat">恢复曲线</span>
+            <h3>42 小时恢复半时是平均值，不是承诺</h3>
+            <p>12 名受试者里最长 71 小时，最短 26 小时，差距来自睡眠与糖原储备。</p>
+            <span class="meta">2026-10-30 · 数据复盘</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3 最新更新 -->
+    <section class="block" id="updates" aria-labelledby="h-updates">
+      <div class="block-head">
+        <span class="kicker">03 / Updates</span>
+        <h2 id="h-updates">最新更新</h2>
+      </div>
+      <ol class="timeline">
+        <li>
+          <time datetime="2026-11-07">2026-11-07</time>
+          <strong>骨骼承重上限表补入 F-07、F-09 两组标本</strong>
+          <span>新增截面位置与加载速率两列，破坏载荷从 1.02 t 到 1.21 t。</span>
+        </li>
+        <li>
+          <time datetime="2026-11-05">2026-11-05</time>
+          <strong>心率区间修正：把 4 区上限从 92% 调到 89%</strong>
+          <span>依据 10-22 至 11-03 的 37 次间歇跑记录，3 例出现持续漂移。</span>
+        </li>
+        <li>
+          <time datetime="2026-11-03">2026-11-03</time>
+          <strong>指尖定位精度测试补测遮眼与非遮眼对照组</strong>
+          <span>遮眼组重复误差 ±1.6 mm，非遮眼组 ±0.9 mm，样本各 9 人。</span>
+        </li>
+        <li>
+          <time datetime="2026-10-29">2026-10-29</time>
+          <strong>Wingate 峰值功率口径统一为 5 秒窗口</strong>
+          <span>此前 1 秒窗口与 5 秒窗口数据混列，导致同一受试者出现 1180 W 与 1042 W 两个值。</span>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4 分类入口 -->
+    <section class="block" id="channels" aria-labelledby="h-channels">
+      <div class="block-head">
+        <span class="kicker">04 / Channels</span>
+        <h2 id="h-channels">分类入口</h2>
+      </div>
+      <p class="block-sub">括号内为已归档条目数，点开即可按类别筛选。</p>
+      <div class="tag-index">
+        <a href="/#overview">骨骼承重实验 <small>9</small></a>
+        <a href="/#deep">肌纤维类型活检 <small>7</small></a>
+        <a href="/#deep">最大摄氧量测试 <small>6</small></a>
+        <a href="/#picks">Wingate 功率数据 <small>5</small></a>
+        <a href="/#updates">心率区间设置 <small>8</small></a>
+        <a href="/#guide">动作精度与本体感觉 <small>4</small></a>
+        <a href="/#news">恢复半时记录 <small>6</small></a>
+        <a href="/#compare">骨骼与肌腱刚度对照 <small>4</small></a>
+        <a href="/#faq">测量口径争议 <small>5</small></a>
+        <a href="/#comments">实测吐槽与反例 <small>7</small></a>
+      </div>
+    </section>
+
+    <!-- 5 深度解析 -->
+    <section class="block" id="deep" aria-labelledby="h-deep">
+      <div class="block-head">
+        <span class="kicker">05 / Deep Dive</span>
+        <h2 id="h-deep">深度解析：1000tr 说的是结构容量，不是一次成绩</h2>
+      </div>
+      <div class="deep">
+        <p>“人体能不能到 1000tr”这个问题，常被当成一个瞬时表现来问。可从 F-07 标本的加载曲线看，破坏点之前有一段明显的非线性区——载荷到 0.86 t 时，应变增速是前段的 2.4 倍。结构容量说的是这段区间的起点，而不是峰值那一瞬间。</p>
+
+        <h3>判断一：1000tr 应理解为稳态上限，取 30 分钟窗口</h3>
+        <p>2026-10-27 的加载测试里，F-07 在 1.02 t 断裂；同批 F-09 在 1.21 t 断裂。单看这两个数，说 1 t 上下很自然。但活体不是干燥标本：肌肉主动收缩会分担轴向负荷，韧带在 15 分钟内会出现 4%—6% 的蠕变。把时间拉长到 30 分钟，可持续的承重就落到 0.62 t 左右。所以 1000tr 若按字面对标 1 t，更适合当上限参照，不适合当可重复的日常成绩。</p>
+        <div class="judge"><b>可被反驳的一句：</b>把 1000tr 当单次极限读，会高估 60%；当 30 分钟稳态上限读，与实测吻合度高。</div>
+
+        <h3>判断二：功率口径差 13%，足以改变结论</h3>
+        <table class="data-table">
+          <caption>同一受试者（编号 S-12）三次 Wingate 取数对比，2026-10-29 复核</caption>
+          <thead><tr><th>取数窗口</th><th>峰值功率</th><th>到达时间</th><th>常见引用场景</th></tr></thead>
+          <tbody>
+            <tr><td>1 秒</td><td class="num">1180 W</td><td class="num">3.2 s</td><td>短跑选材</td></tr>
+            <tr><td>5 秒</td><td class="num">1042 W</td><td class="num">4.6 s</td><td>功率车测试报告</td></tr>
+            <tr><td>30 秒均值</td><td class="num">736 W</td><td class="num">—</td><td>无氧耐力评估</td></tr>
+          </tbody>
+        </table>
+        <p>1180 W 与 1042 W 差 13.2%，比大多数训练干预带来的变化都大。口径不统一时，任何“人体功率上限”的比较都失去意义。10-29 之后站内统一用 5 秒窗口，旧条目保留原值并标注口径。</p>
+
+        <h3>判断三：恢复半时的中位数掩盖了分布</h3>
+        <p>n=12 那次采样，中位 42 小时，但四分位距是 31—58 小时。最长 71 小时的那位受试者，测试前两天睡眠只有 4.5 小时；最短 26 小时的一位，糖原储备按 8 g/kg 补足。换句话说，42 小时是条件较优时的值，不是人体普遍值。用它排训练计划，对睡眠不足的人会偏乐观。</p>
+        <ul class="checklist">
+          <li><b>可核对项 A：</b>股骨破坏载荷 1.02 t / 1.21 t，标本 F-07、F-09，加载速率 5 mm/min。</li>
+          <li><b>可核对项 B：</b>Wingate 三口径 1180 / 1042 / 736 W，受试者 S-12，2026-10-29。</li>
+          <li><b>可核对项 C：</b>恢复半时中位 42 h，四分位距 31—58 h，n=12。</li>
+          <li><b>可核对项 D：</b>遮眼指尖定位 ±1.6 mm，非遮眼 ±0.9 mm，各 n=9。</li>
+        </ul>
+
+        <h3>说法差异：同一条数据在三个来源里的措辞</h3>
+        <p>关于慢肌占比 48%，活检报告写“股外侧肌中段三个位点均值”；一篇 2026-10-19 的训练日志转述为“腿部慢肌接近一半”；另一份科普材料写成“耐力型体质”。三者指向同一采样，但外推范围一次比一次大。事实层只有第一句成立，后两句属于转述与推测。遇到“接近一半”这类说法，先问位点数量与采样深度。</p>
+        <div class="judge"><b>拆解后的核对路径：</b>先确认是活检还是表面肌电估算 → 再确认位点数量 → 最后确认是否跨肌群外推。三步里任一步缺失，比例数字就只能当参考。</div>
+      </div>
+    </section>
+
+    <!-- 6 体验指南 -->
+    <section class="block" id="guide" aria-labelledby="h-guide">
+      <div class="block-head">
+        <span class="kicker">06 / Field Guide</span>
+        <h2 id="h-guide">体验指南：自己测一遍的五个步骤</h2>
+      </div>
+      <ol class="steps">
+        <li><strong>先定口径</strong><p>功率用 5 秒窗口，承重用 30 分钟稳态，心率区间用实测最大心率而非 220 减年龄。口径写在记录表第一行。</p></li>
+        <li><strong>做一次基线采样</strong><p>静息心率、体重、睡眠时长三项连着记三天。2026-11-01 起有 21 人按此流程提交，基线波动多在 ±3 次/分以内。</p></li>
+        <li><strong>测短时功率但别只看峰值</strong><p>Wingate 30 秒，记录 5 秒峰值与 30 秒均值两个数，两者比值低于 0.6 说明无氧耐力储备偏弱。</p></li>
+        <li><strong>用指尖定位自测动作精度</strong><p>遮眼，食指触碰固定标记 20 次，量重复误差。超过 ±2.5 mm 时，先排查疲劳与咖啡因摄入，再谈训练。</p></li>
+        <li><strong>记录恢复而不是猜恢复</strong><p>运动后 24、48、72 小时各记一次主观疲劳分与晨脉。数据攒到 6 次再调训练量。</p></li>
+      </ol>
+    </section>
+
+    <!-- 7 FAQ -->
+    <section class="block" id="faq" aria-labelledby="h-faq">
+      <div class="block-head">
+        <span class="kicker">07 / FAQ</span>
+        <h2 id="h-faq">常见问题</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>股骨承重 1.1 吨的实验值能直接套到活人身上吗？</summary>
+          <div class="ans"><p>不能直接套。实验用的是取出后的干燥或新鲜标本，缺少肌肉主动收缩带来的分担，也缺少活体的血流与修复。F-07 的 1.02 t 是加载到断裂的瞬时值，活体在 30 分钟持续负荷下，安全区间通常落在 0.6 t 上下。套用时还要看年龄、骨密度和加载方向。</p></div>
+        </details>
+        <details>
+          <summary>慢肌纤维占比 48% 算耐力型还是均衡型？</summary>
+          <div class="ans"><p>股外侧肌的常见参考区间是 35%—55%，48% 落在中间偏上位置。它说明有中等耐力潜力，但不等于最大摄氧量高。2026-10-19 那批采样的受试者里，慢肌 48% 的人最大摄氧量从 51 到 62 ml/kg/min 都有，差别主要来自心肺与训练年限。</p></div>
+        </details>
+        <details>
+          <summary>最大摄氧量用跑台和功率车测，差多少算正常？</summary>
+          <div class="ans"><p>同一个人两种方式差 3%—7% 属常见范围。跑台涉及更多肌群参与，值通常偏高。站内 10-24 的对照记录里差 3.4%，接近下限，原因是功率车测试前热身更充分。判断时看差值是否稳定，而不是看单次数值。</p></div>
+        </details>
+        <details>
+          <summary>Wingate 峰值功率 1180 W 算什么水平？</summary>
+          <div class="ans"><p>要看体重与训练背景。按 5 秒窗口、受试者体重 78 kg 折算约 15.1 W/kg，属于有训练基础的短时输出。若按 1 秒窗口取数，同一人可报 1180 W，但这一刻度峰值维持不到 1 秒，用于选材会失真。</p></div>
+        </details>
+        <details>
+          <summary>心率 4 区上限为什么从 92% 改到 89%？</summary>
+          <div class="ans"><p>10-22 至 11-03 的 37 次间歇跑记录里，有 3 例在 90%—92% 区间出现心率持续上漂，30 分钟内未回落。把上限下调到 89% 后，这 3 例的漂移消失。改动只影响 4 区，3 区与 5 区未动，旧记录仍按当时区间标注。</p></div>
+        </details>
+        <details>
+          <summary>指尖定位精度 ±1.6 mm 是在什么条件下测的？</summary>
+          <div class="ans"><p>遮眼、坐姿、肘部有支撑，目标是前方 30 cm 处一个直径 4 mm 的标记，触碰 20 次后量散布半径。非遮眼对照组为 ±0.9 mm。条件改变，比如站立或疲劳状态下，误差会明显变大，11-03 的补测里站立组达到 ±2.4 mm。</p></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 8 对照面板 -->
+    <section class="block" id="compare" aria-labelledby="h-compare">
+      <div class="block-head">
+        <span class="kicker">08 / Compare</span>
+        <h2 id="h-compare">骨骼刚性与肌腱弹性：两种“硬度”别混用</h2>
+      </div>
+      <div class="compare">
+        <div>
+          <h3>骨骼刚性</h3>
+          <ul>
+            <li>测的是抗变形能力，单位常用 GPa</li>
+            <li>皮质骨弹性模量约 17—20 GPa</li>
+            <li>受年龄与负重史影响，变化较慢</li>
+            <li>过度负荷的表现是应力性骨折，而非拉长</li>
+          </ul>
+        </div>
+        <div>
+          <h3>肌腱弹性</h3>
+          <ul>
+            <li>测的是储能与回弹，关注滞后环面积</li>
+            <li>跟腱在跳跃中可储存并释放约 35 J 能量</li>
+            <li>短期训练即可改变刚度，4—8 周可见</li>
+            <li>过度负荷的表现是肌腱炎与增厚</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 用户评论 -->
+    <section class="block" id="comments" aria-labelledby="h-comments">
+      <div class="block-head">
+        <span class="kicker">09 / Comments</span>
+        <h2 id="h-comments">用户评论</h2>
+      </div>
+      <div class="comments">
+        <article class="comment">
+          <div class="who"><span class="avatar">林</span>林工 · 10-28 提交</div>
+          <span class="ref">针对：股骨轴向承压实测</span>
+          <p>F-07 的破坏点标在股骨颈下方 2.3 cm，和我在骨科见到的老年骨折位置不太一致，那边多在股骨颈。想确认加载方向是不是完全轴向。</p>
+        </article>
+        <article class="comment">
+          <div class="who"><span class="avatar">周</span>周跑跑 · 11-05 提交</div>
+          <span class="ref">针对：心率 4 区上限调整</span>
+          <p>89% 这个上限我用着偏低，间歇跑到最后一组会掉出区间。可能我的实测最大心率本来就估高了 3 次。</p>
+        </article>
+        <article class="comment">
+          <div class="who"><span class="avatar">陈</span>陈默 · 11-02 提交</div>
+          <span class="ref">针对：慢肌 48% 活检怎么读</span>
+          <p>三个位点差 9 个百分点这段写得很实在。之前只看到一个 48%，还以为是全身平均值。</p>
+        </article>
+        <article class="comment">
+          <div class="who"><span class="avatar">吴</span>吴七 · 10-31 提交</div>
+          <p>整体逻辑清楚，但恢复半时那块样本只有 12 人，拿来做训练计划参考还是薄了点，希望样本量标得更显眼。</p>
+        </article>
+        <article class="comment">
+          <div class="who"><span class="avatar">何</span>何工 · 11-06 提交</div>
+          <span class="ref">针对：Wingate 三口径对比</span>
+          <p>1 秒和 5 秒窗口差 138 W，比我从训练前后看到的差异还大。以后看报告先翻方法学那页。</p>
+        </article>
+        <article class="comment">
+          <div class="who"><span class="avatar">苏</span>苏叶 · 11-04 提交</div>
+          <p>指尖定位那个自测方法我试了，遮眼 20 次散布到 3 mm 左右，比文中 1.6 差不少。可能我坐姿不够稳。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 10 相关资讯 -->
+    <section class="block" id="news" aria-labelledby="h-news">
+      <div class="block-head">
+        <span class="kicker">10 / News</span>
+        <h2 id="h-news">相关资讯</h2>
+      </div>
+      <ul class="news-list">
+        <li>
+          <time datetime="2026-11-06">11-06</time>
+          <div><a href="/#deep">皮质骨弹性模量复测：17 GPa 与 20 GPa 的样本差异</a><span>同一实验室两批标本，供体年龄相差 11 岁。</span></div>
+        </li>
+        <li>
+          <time datetime="2026-11-04">11-04</time>
+          <div><a href="/#updates">间歇跑心率漂移记录新增 9 条</a><span>4 区上限调整后首次集中回传。</span></div>
+        </li>
+        <li>
+          <time datetime="2026-11-01">11-01</time>
+          <div><a href="/#guide">基线采样流程上线，21 人提交首日数据</a><span>晨脉与睡眠时长同时记录。</span></div>
+        </li>
+        <li>
+          <time datetime="2026-10-26">10-26</time>
+          <div><a href="/#compare">跟腱储能 35 J 的测量条件说明补充</a><span>加入跳跃高度与地面反作用力两项。</span></div>
+        </li>
+        <li>
+          <time datetime="2026-10-22">10-22</time>
+          <div><a href="/#faq">最大摄氧量两种测法差值的首次汇总</a><span>跑台普遍高于功率车，差值 3%—7%。</span></div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 11 相关推荐 -->
+    <section class="block" id="recommend" aria-labelledby="h-rec">
+      <div class="block-head">
+        <span class="kicker">11 / Recommend</span>
+        <h2 id="h-rec">相关推荐</h2>
+      </div>
+      <div class="rec-tags">
+        <a href="/#overview">骨骼承重上限怎么测</a>
+        <a href="/#deep">肌纤维类型活检解读</a>
+        <a href="/#deep">最大摄氧量跑台对照</a>
+        <a href="/#updates">Wingate 峰值功率口径</a>
+        <a href="/#faq">心率 4 区上限设置</a>
+        <a href="/#guide">指尖定位精度自测</a>
+        <a href="/#compare">跟腱储能与滞后环</a>
+        <a href="/#comments">恢复半时实测反例</a>
+      </div>
+    </section>
+
+    <!-- 12 榜单 -->
+    <section class="block" id="rank" aria-labelledby="h-rank">
+      <div class="block-head">
+        <span class="kicker">12 / Ranking</span>
+        <h2 id="h-rank">本周检索热度榜</h2>
+      </div>
+      <p class="block-sub">按 11-01 至 11-07 站内检索次数排序，括号内为同比变化。</p>
+      <ol class="rank">
+        <li><span class="n">01</span><span class="t">骨骼承重上限<small>股骨、胫骨、椎体三类标本</small></span><span class="v">+34%</span></li>
+        <li><span class="n">02</span><span class="t">肌纤维类型活检<small>慢肌与快肌比例</small></span><span class="v">+21%</span></li>
+        <li><span class="n">03</span><span class="t">最大摄氧量测试<small>跑台与功率车对照</small></span><span class="v">+18%</span></li>
+        <li><span class="n">04</span><span class="t">Wingate 峰值功率<small>1 秒与 5 秒窗口</small></span><span class="v">+12%</span></li>
+        <li><span class="n">05</span><span class="t">指尖定位精度<small>遮眼与非遮眼</small></span><span class="v">+9%</span></li>
+      </ol>
+    </section>
+
+  </main>
+
+  <!-- 侧栏 -->
+  <aside class="side-col" aria-label="侧栏">
+    <div class="side-card side-nav">
+      <h3>栏目导航</h3>
+      <ul id="sideNavList">
+        <li><a href="/#overview">结构概览</a></li>
+        <li><a href="/#picks">精选推荐</a></li>
+        <li><a href="/#updates">最新更新</a></li>
+        <li><a href="/#channels">分类入口</a></li>
+        <li><a href="/#deep">深度解析</a></li>
+        <li><a href="/#guide">体验指南</a></li>
+        <li><a href="/#faq">常见问题</a></li>
+        <li><a href="/#compare">骨骼与肌腱</a></li>
+        <li><a href="/#comments">用户评论</a></li>
+        <li><a href="/#news">相关资讯</a></li>
+        <li><a href="/#recommend">相关推荐</a></li>
+        <li><a href="/#rank">检索热度榜</a></li>
+      </ul>
+    </div>
+    <div class="side-card">
+      <h3>本周数据快照</h3>
+      <p style="font-size:var(--fs-sm);margin-bottom:8px;color:var(--ink-soft)">截至 11-07，站内已归档 46 组结构数据，其中 11-02 至 11-07 新增 7 组。</p>
+      <ul style="list-style:none;padding:0;margin:0;font-size:var(--fs-xs);color:var(--muted);display:grid;gap:5px">
+        <li>骨骼承重 9 组</li>
+        <li>肌纤维活检 7 组</li>
+        <li>功率与心率 13 组</li>
+        <li>恢复与精度 17 组</li>
+      </ul>
+    </div>
+    <div class="side-card">
+      <h3>参与实测</h3>
+      <p style="font-size:var(--fs-sm);color:var(--ink-soft);margin-bottom:8px">按体验指南完成任一步骤，把记录发到评论区，注明测量口径与日期即可入档。</p>
+      <div class="search-feedback" aria-live="polite" id="sideFeedback"></div>
+      <a class="btn btn-ghost" href="/#guide" style="font-size:var(--fs-xs);padding:6px 14px">查看步骤</a>
+    </div>
+  </aside>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="fbrand">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <rect width="64" height="64" rx="14" fill="#233240"/>
+          <circle cx="32" cy="32" r="13" fill="none" stroke="#f4c95d" stroke-width="2.6"/>
+          <path d="M32 8v48M8 32h48" stroke="#e06a3b" stroke-width="3.4" stroke-linecap="round"/>
+        </svg>
+        <b>人体1000tr</b>
+      </div>
+      <p class="pos">把承重、功率、精度、恢复这四类数字放在同一张表里对照，读数据的人更容易发现口径问题。</p>
+      <p style="font-size:var(--fs-xs);color:#8e9aa5;margin-bottom:0">数据说明：站内条目含示例数据，实验编号、受试者代码与采样批次为示意，引用前请核对原始记录。</p>
+    </div>
+    <div>
+      <h4>栏目分组</h4>
+      <ul>
+        <li><a href="/#overview">结构概览</a></li>
+        <li><a href="/#deep">深度解析</a></li>
+        <li><a href="/#guide">体验指南</a></li>
+        <li><a href="/#faq">常见问题</a></li>
+        <li><a href="/#news">相关资讯</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>数据入口</h4>
+      <ul>
+        <li><a href="/#updates">最新更新</a></li>
+        <li><a href="/#channels">分类入口</a></li>
+        <li><a href="/#comments">用户评论</a></li>
+        <li><a href="/#recommend">相关推荐</a></li>
+        <li><a href="/#rank">检索热度榜</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 人体1000tr · 内容归档站</span>
+    <span>页面数据更新于 2026-11-07，对应「骨骼承重上限表」与「心率区间修正」两项更新</span>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="回到顶部" title="回到顶部">↑</button>
+
+<script>
+(function(){
+  "use strict";
+
+  /* 移动端菜单 */
+  var menuBtn = document.getElementById('menuBtn');
+  var nav = document.getElementById('mainNav');
+  if (menuBtn && nav) {
+    menuBtn.addEventListener('click', function(){
+      var open = nav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menuBtn.textContent = open ? '收起' : '菜单';
+    });
+    nav.addEventListener('click', function(e){
+      if (e.target.tagName === 'A' && window.matchMedia('(max-width:760px)').matches) {
+        nav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+        menuBtn.textContent = '菜单';
+      }
+    });
+  }
+
+  /* 回到顶部 */
+  var toTop = document.getElementById('toTop');
+  var stickyH = 96;
+  function onScroll(){
+    if (window.scrollY > 420) toTop.classList.add('show');
+    else toTop.classList.remove('show');
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  toTop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+    var firstBtn = document.querySelector('.hero-actions .btn');
+    if (firstBtn) firstBtn.focus({preventScroll:true});
+  });
+
+  /* 搜索：本地查找 + 无结果反馈 */
+  var form = document.getElementById('searchForm');
+  var input = document.getElementById('q');
+  var feedback = document.getElementById('sideFeedback');
+  var index = [];
+  document.querySelectorAll('.main-col h2, .main-col h3, .faq summary, .pick h3, .news-list a, .timeline strong, .rank .t').forEach(function(el){
+    var text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+    if (text) index.push({text: text.toLowerCase(), el: el});
+  });
+
+  function clearMarks(){
+    document.querySelectorAll('.search-hit').forEach(function(el){
+      el.classList.remove('search-hit');
+      el.style.removeProperty('outline');
+      el.style.removeProperty('background');
+      el.style.removeProperty('border-radius');
+    });
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    clearMarks();
+    var q = input.value.trim().toLowerCase();
+    if (!q) {
+      feedback.textContent = '输入骨骼承重、功率、心率等关键词再搜索。';
+      return;
+    }
+    var hits = index.filter(function(item){ return item.text.indexOf(q) !== -1; });
+    if (!hits.length) {
+      feedback.textContent = '没有找到“' + input.value.trim() + '”相关内容，可换用「骨骼承重」「最大摄氧量」「Wingate」等词。';
+      input.focus();
+      return;
+    }
+    hits.forEach(function(h){
+      h.el.classList.add('search-hit');
+      h.el.style.outline = '2px solid #e06a3b';
+      h.el.style.outlineOffset = '3px';
+      h.el.style.borderRadius = '4px';
+    });
+    feedback.textContent = '命中 ' + hits.length + ' 处，已高亮，首个结果正在定位。';
+    hits[0].el.scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'center'});
+  });
+
+  input.addEventListener('input', function(){
+    if (!input.value.trim()) { clearMarks(); feedback.textContent = ''; }
+  });
+
+  /* 侧栏滚动高亮 */
+  var sideLinks = Array.prototype.slice.call(document.querySelectorAll('#sideNavList a'));
+  var sections = sideLinks.map(function(a){
+    var id = a.getAttribute('href').replace('/#','');
+    return {a: a, el: document.getElementById(id)};
+  }).filter(function(o){ return o.el; });
+
+  function offsetTop(){
+    var wrap = document.querySelector('.sticky-wrap');
+    return (wrap ? wrap.offsetHeight : 0) + 24;
+  }
+
+  function syncActive(){
+    var y = window.scrollY + offsetTop();
+    var current = null;
+    sections.forEach(function(o){
+      if (o.el.offsetTop <= y) current = o;
+    });
+    sideLinks.forEach(function(a){ a.classList.remove('active'); });
+    sections.forEach(function(o){
+      if (o === current) { o.a.classList.add('active'); o.a.setAttribute('aria-current','true'); }
+      else o.a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', syncActive, {passive:true});
+  window.addEventListener('resize', syncActive);
+  syncActive();
+
+  /* 锚点平滑滚动，为吸顶预留偏移 */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="/#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(2);
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    var top = target.getBoundingClientRect().top + window.scrollY - offsetTop();
+    window.scrollTo({top: top, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+    if (history.replaceState) history.replaceState(null, '', '/#' + id);
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "人体1000tr",
+  "inLanguage": "zh-CN",
+  "description": "围绕人体结构参数与能力上限的专题站，覆盖骨骼承重、肌纤维配比、心率输出、代谢功率与动作精度。"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "股骨承重 1.1 吨的实验值能直接套到活人身上吗？",
+      "acceptedAnswer": {"@type": "Answer", "text": "不能直接套。实验用取出后的标本，缺少肌肉主动收缩分担与活体修复。F-07 的 1.02 t 是加载到断裂的瞬时值，活体 30 分钟持续负荷下安全区间通常落在 0.6 t 上下，套用时还要看年龄、骨密度和加载方向。"}
+    },
+    {
+      "@type": "Question",
+      "name": "慢肌纤维占比 48% 算耐力型还是均衡型？",
+      "acceptedAnswer": {"@type": "Answer", "text": "股外侧肌常见参考区间是 35%—55%，48% 落在中间偏上。它说明有中等耐力潜力，但不等于最大摄氧量高。2026-10-19 那批采样的受试者里，慢肌 48% 的人最大摄氧量从 51 到 62 ml/kg/min 都有。"}
+    },
+    {
+      "@type": "Question",
+      "name": "最大摄氧量用跑台和功率车测差多少算正常？",
+      "acceptedAnswer": {"@type": "Answer", "text": "同一个人两种方式差 3%—7% 属常见范围。跑台涉及更多肌群参与，值通常偏高。站内 10-24 的对照记录里差 3.4%，原因是功率车测试前热身更充分。判断时看差值是否稳定。"}
+    },
+    {
+      "@type": "Question",
+      "name": "Wingate 峰值功率 1180 W 算什么水平？",
+      "acceptedAnswer": {"@type": "Answer", "text": "要看体重与训练背景。按 5 秒窗口、体重 78 kg 折算约 15.1 W/kg，属于有训练基础的短时输出。若按 1 秒窗口取数，同一人可报 1180 W，但这一刻度峰值维持不到 1 秒。"}
+    },
+    {
+      "@type": "Question",
+      "name": "心率 4 区上限为什么从 92% 改到 89%？",
+      "acceptedAnswer": {"@type": "Answer", "text": "10-22 至 11-03 的 37 次间歇跑记录里，有 3 例在 90%—92% 区间出现心率持续上漂，30 分钟内未回落。把上限下调到 89% 后漂移消失。改动只影响 4 区。"}
+    },
+    {
+      "@type": "Question",
+      "name": "指尖定位精度 ±1.6 mm 是在什么条件下测的？",
+      "acceptedAnswer": {"@type": "Answer", "text": "遮眼、坐姿、肘部有支撑，目标是前方 30 cm 处一个直径 4 mm 的标记，触碰 20 次后量散布半径。非遮眼对照组为 ±0.9 mm。站立或疲劳状态下误差会明显变大。"}
+    }
+  ]
+}
+</script>
+</body>
+        </html>
