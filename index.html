@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>每日大赛网站在线入口-赛事赛程与参赛指南</title>
+<meta name="description" content="每日大赛网站在线入口提供每日赛事赛程、报名入口与赛果查询，覆盖编程、设计、摄影、数学建模等赛事，含规则解析、参赛准备清单与选手问答，帮你在开赛前弄清分组与评审口径。">
+<meta name="keywords" content="每日大赛网站在线入口">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f3b5c'/%3E%3Cpath d='M20 44V20h6v24zm10-9 8-7-8-7' fill='none' stroke='%23f2b64c' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#10202e;
+  --ink-2:#33475a;
+  --ink-3:#5c7183;
+  --line:#d8e0e7;
+  --line-soft:#e8eef3;
+  --paper:#ffffff;
+  --paper-2:#f4f7fa;
+  --paper-3:#eaf1f6;
+  --brand:#0f3b5c;
+  --brand-2:#17567f;
+  --accent:#c9772a;
+  --accent-soft:#f8ecd9;
+  --ok:#1f7a5c;
+  --warn:#b23c34;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --shadow-1:0 1px 2px rgba(16,32,46,.06),0 4px 14px rgba(16,32,46,.06);
+  --shadow-2:0 2px 6px rgba(16,32,46,.08),0 12px 32px rgba(16,32,46,.10);
+  --space-1:6px;
+  --space-2:12px;
+  --space-3:18px;
+  --space-4:26px;
+  --space-5:38px;
+  --space-6:56px;
+  --fs-1:13px;
+  --fs-2:15px;
+  --fs-3:17px;
+  --fs-4:20px;
+  --fs-5:26px;
+  --fs-6:34px;
+  --fs-7:44px;
+  --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  --sticky-offset:104px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.75;
+  font-size:var(--fs-2);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{margin:0;line-height:1.35;font-weight:700;letter-spacing:.2px}
+p{margin:0 0 var(--space-2)}
+ul,ol{margin:0 0 var(--space-2);padding-left:1.25em}
+li{margin-bottom:4px}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+section[id],footer[id],div[id]{scroll-margin-top:var(--sticky-offset)}
+
+/* ===== 吸顶公告 + 页头 ===== */
+.sticky-shell{position:sticky;top:0;z-index:60}
+.notice-bar{
+  background:var(--brand);
+  color:#e9f2f8;
+  font-size:var(--fs-1);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.notice-bar .inner{
+  max-width:1200px;margin:0 auto;padding:7px 20px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.notice-tag{
+  background:var(--accent);color:#231202;font-weight:700;
+  border-radius:3px;padding:1px 7px;font-size:12px;letter-spacing:.5px;white-space:nowrap;
+}
+.notice-bar a{color:#ffd99b;text-decoration:underline;text-underline-offset:3px}
+.notice-sep{opacity:.45}
+.site-header{
+  background:rgba(255,255,255,.97);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:saturate(1.2) blur(6px);
+}
+.header-inner{
+  max-width:1200px;margin:0 auto;padding:12px 20px;
+  display:flex;align-items:center;gap:var(--space-3);
+}
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.brand-mark{
+  width:40px;height:40px;border-radius:11px;
+  background:linear-gradient(150deg,var(--brand),#0b2b44);
+  display:grid;place-items:center;box-shadow:var(--shadow-1);
+}
+.brand-mark svg{width:24px;height:24px}
+.brand-text{display:flex;flex-direction:column;line-height:1.2}
+.brand-text b{font-size:17px;letter-spacing:.5px;color:var(--brand)}
+.brand-text span{font-size:11px;color:var(--ink-3);letter-spacing:1.6px}
+.main-nav{margin-left:auto;display:flex;align-items:center;gap:2px;flex-wrap:wrap}
+.main-nav a{
+  color:var(--ink-2);font-size:14px;padding:6px 10px;border-radius:var(--radius-s);
+  white-space:nowrap;
+}
+.main-nav a:hover{background:var(--paper-3);text-decoration:none;color:var(--brand)}
+.search-box{
+  display:flex;align-items:center;gap:6px;
+  border:1px solid var(--line);border-radius:999px;padding:4px 6px 4px 12px;background:var(--paper-2);
+}
+.search-box input{
+  border:0;background:transparent;outline:none;font-size:14px;width:150px;color:var(--ink);
+}
+.search-box button{
+  border:0;background:var(--brand);color:#fff;border-radius:999px;
+  padding:5px 12px;font-size:13px;cursor:pointer;
+}
+.search-box button:hover{background:var(--brand-2)}
+.menu-toggle{
+  display:none;margin-left:auto;border:1px solid var(--line);background:var(--paper);
+  border-radius:var(--radius-s);padding:8px 10px;cursor:pointer;color:var(--brand);
+}
+.menu-toggle svg{width:20px;height:20px;display:block}
+.search-feedback{
+  max-width:1200px;margin:0 auto;padding:0 20px;
+  font-size:13px;color:var(--warn);
+}
+.search-feedback:not(:empty){padding-bottom:8px}
+
+@media (max-width:900px){
+  .main-nav{
+    order:5;flex-basis:100%;justify-content:flex-start;
+    display:none;border-top:1px solid var(--line-soft);padding:6px 0 2px;margin-left:0;
+  }
+  .main-nav.open{display:flex}
+  .menu-toggle{display:block}
+  .header-inner{flex-wrap:wrap}
+  .search-box{margin-left:auto}
+}
+@media (max-width:560px){
+  .search-box{flex-basis:100%;order:6;margin:6px 0 0}
+  .search-box input{flex:1;width:auto}
+}
+
+/* ===== 首屏 ===== */
+.hero{
+  position:relative;
+  background:
+    radial-gradient(1000px 380px at 88% -18%,#dceaf4 0%,transparent 62%),
+    linear-gradient(180deg,#f7fafc,#ffffff 76%);
+  border-bottom:1px solid var(--line-soft);
+  overflow:hidden;
+}
+.hero-inner{
+  max-width:1200px;margin:0 auto;padding:var(--space-6) 20px var(--space-5);
+  display:grid;grid-template-columns:1.08fr .92fr;gap:var(--space-5);align-items:center;
+}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-soft);color:#8a4a12;border:1px solid #eed3ac;
+  border-radius:999px;padding:3px 12px;font-size:12.5px;font-weight:600;margin-bottom:14px;
+}
+.hero-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+.hero h1{
+  font-size:var(--fs-7);letter-spacing:.4px;color:var(--brand);
+  margin-bottom:var(--space-3);
+}
+.hero h1 .accent-underline{
+  background:linear-gradient(transparent 66%,#f7d9a8 66%);
+  padding:0 2px;
+}
+.hero-desc{font-size:var(--fs-3);color:var(--ink-2);max-width:44ch;margin-bottom:var(--space-4)}
+.hero-desc strong{color:var(--brand);font-weight:700}
+.hero-actions{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-4)}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;border-radius:var(--radius-m);
+  padding:10px 20px;font-size:15px;font-weight:600;border:1px solid transparent;
+  cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;
+}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:var(--shadow-1)}
+.btn-primary:hover{background:var(--brand-2);box-shadow:var(--shadow-2)}
+.btn-ghost{background:var(--paper);color:var(--brand);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--brand);box-shadow:var(--shadow-1)}
+.hero-stats{
+  display:flex;gap:var(--space-4);flex-wrap:wrap;border-top:1px dashed var(--line);
+  padding-top:var(--space-3);
+}
+.hero-stats div{min-width:96px}
+.hero-stats b{display:block;font-size:22px;color:var(--brand);font-family:var(--mono);letter-spacing:.5px}
+.hero-stats span{font-size:12.5px;color:var(--ink-3)}
+
+.hero-art{position:relative;min-height:320px}
+.hero-art .panel{
+  position:absolute;background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius-l);box-shadow:var(--shadow-2);
+}
+.art-board{
+  inset:0 0 46px 34px;padding:18px 18px 14px;
+}
+.art-board h4{font-size:13px;color:var(--ink-3);font-weight:600;letter-spacing:1px;margin-bottom:10px}
+.art-row{
+  display:grid;grid-template-columns:26px 1fr 58px;gap:10px;align-items:center;
+  padding:7px 0;border-bottom:1px dashed var(--line-soft);font-size:13px;
+}
+.art-row:last-child{border-bottom:0}
+.art-row .num{font-family:var(--mono);color:var(--accent);font-weight:700;font-size:12px}
+.art-row .bar{height:7px;border-radius:4px;background:linear-gradient(90deg,var(--brand-2),#8fb8d4)}
+.art-row .bar.b2{width:78%}
+.art-row .bar.b3{width:52%;background:linear-gradient(90deg,var(--accent),#e8bc84)}
+.art-row .bar.b4{width:35%}
+.art-row .t{color:var(--ink-3);font-family:var(--mono);font-size:12px;text-align:right}
+.art-card{
+  right:0;bottom:0;width:190px;padding:12px 14px;border-left:4px solid var(--accent);
+}
+.art-card small{color:var(--ink-3);font-size:11.5px;letter-spacing:.8px}
+.art-card b{display:block;font-size:15px;color:var(--brand);margin:2px 0 6px}
+.art-card p{font-size:12px;color:var(--ink-2);margin:0}
+@media (max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:var(--space-4)}
+  .hero h1{font-size:var(--fs-6)}
+  .hero-art{min-height:260px;order:2}
+}
+
+/* ===== 布局 ===== */
+.layout{
+  max-width:1200px;margin:0 auto;padding:var(--space-6) 20px;
+  display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:var(--space-5);
+}
+.content-col{min-width:0}
+.side-col{align-self:start;position:sticky;top:var(--sticky-offset)}
+.block{margin-bottom:var(--space-6)}
+.block-head{margin-bottom:var(--space-3)}
+.block-head .eyebrow{
+  font-size:12px;color:var(--accent);letter-spacing:2px;font-weight:700;display:block;margin-bottom:4px;
+}
+.block-head h2{font-size:var(--fs-5);color:var(--brand);letter-spacing:.3px}
+.block-head p{color:var(--ink-3);font-size:14px;margin:6px 0 0}
+
+/* 概览卡 */
+.overview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)}
+.ov-card{
+  border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 16px;background:var(--paper);
+}
+.ov-card b{color:var(--brand);display:block;font-size:15px;margin-bottom:4px}
+.ov-card span{font-size:13px;color:var(--ink-3)}
+.ov-card .fig{font-family:var(--mono);color:var(--accent);font-size:19px;display:block;margin-top:8px}
+@media (max-width:900px){.overview-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.overview-grid{grid-template-columns:1fr}}
+
+/* 精选卡网格 */
+.feature-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:var(--space-3)}
+.card{
+  border:1px solid var(--line);border-radius:var(--radius-m);background:var(--paper);
+  overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s ease,transform .18s ease;
+}
+.card:hover{box-shadow:var(--shadow-2);transform:translateY(-3px)}
+.card img{width:100%;height:150px;object-fit:cover}
+.card-body{padding:14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card-body .meta{font-size:12px;color:var(--ink-3);display:flex;gap:8px;flex-wrap:wrap}
+.card-body h3{font-size:var(--fs-3);color:var(--ink)}
+.card-body h3 a{color:var(--ink)}
+.card-body p{font-size:13.5px;color:var(--ink-2);margin:0}
+.tag{
+  display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;
+  background:var(--paper-3);color:var(--brand);border:1px solid var(--line-soft);
+}
+.card-main img{height:196px}
+.card-main h3{font-size:var(--fs-4)}
+@media (max-width:900px){.feature-grid{grid-template-columns:1fr 1fr}.card-main{grid-column:span 2}}
+@media (max-width:560px){.feature-grid{grid-template-columns:1fr}.card-main{grid-column:span 1}}
+
+/* 最新更新紧凑列表 */
+.updates{list-style:none;padding:0;margin:0;border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden}
+.updates li{
+  display:grid;grid-template-columns:92px 1fr auto;gap:14px;align-items:baseline;
+  padding:11px 16px;border-bottom:1px solid var(--line-soft);margin:0;background:var(--paper);
+}
+.updates li:last-child{border-bottom:0}
+.updates time{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+.updates .u-main{font-size:14.5px;color:var(--ink)}
+.updates .u-main b{color:var(--brand)}
+.updates .u-tag{font-size:12px;color:var(--ink-3);white-space:nowrap}
+@media (max-width:640px){
+  .updates li{grid-template-columns:1fr;gap:2px}
+  .updates .u-tag{justify-self:start}
+}
+
+/* 分类入口标签索引 */
+.cat-index{display:flex;flex-wrap:wrap;gap:10px}
+.cat-index a{
+  display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);
+  border-radius:var(--radius-s);padding:9px 14px;font-size:14px;color:var(--ink-2);
+  background:var(--paper);transition:border-color .15s,color .15s;
+}
+.cat-index a:hover{border-color:var(--brand);color:var(--brand);text-decoration:none}
+.cat-index a em{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--accent)}
+
+/* 深度解析 */
+.deep{
+  border:1px solid var(--line);border-left:5px solid var(--brand);
+  border-radius:var(--radius-m);padding:var(--space-4) var(--space-4) var(--space-3);
+  background:linear-gradient(180deg,#fbfdfe,#ffffff);
+}
+.deep h2{margin-bottom:6px}
+.deep .lede{color:var(--ink-2);font-size:15px;border-bottom:1px dashed var(--line);padding-bottom:var(--space-3);margin-bottom:var(--space-3)}
+.deep h3{font-size:var(--fs-4);color:var(--brand);margin:var(--space-4) 0 var(--space-2)}
+.deep h3 .no{font-family:var(--mono);color:var(--accent);font-size:14px;margin-right:8px}
+.deep p{color:var(--ink-2)}
+.judge-box{
+  background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius-s);
+  padding:12px 16px;margin:var(--space-2) 0 var(--space-3);
+}
+.judge-box b{color:var(--brand);display:block;font-size:13.5px;margin-bottom:4px;letter-spacing:.5px}
+.judge-box p{margin:0;font-size:13.5px}
+.compare-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:var(--space-2) 0 var(--space-3)}
+.compare-table th,.compare-table td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.compare-table th{background:var(--paper-2);color:var(--brand);font-weight:600}
+.compare-table td:first-child{color:var(--ink-3);width:30%}
+.timeline-list{list-style:none;padding:0;margin:0 0 var(--space-3);border-left:2px solid var(--line)}
+.timeline-list li{position:relative;padding:0 0 var(--space-2) 18px;margin:0;font-size:14px;color:var(--ink-2)}
+.timeline-list li::before{content:"";position:absolute;left:-6px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--paper);border:2px solid var(--accent)}
+.timeline-list time{font-family:var(--mono);color:var(--brand);font-weight:600;margin-right:6px}
+.quote-card{
+  border-left:4px solid var(--accent);background:var(--accent-soft);
+  padding:12px 16px;border-radius:0 var(--radius-s) var(--radius-s) 0;margin:var(--space-2) 0 var(--space-3);
+  font-size:14px;color:#5c3a12;
+}
+
+/* 体验指南编号步骤 */
+.steps{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:var(--space-3)}
+.steps li{
+  counter-increment:s;margin:0;display:grid;grid-template-columns:44px 1fr;gap:14px;
+  border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 18px;background:var(--paper);
+}
+.steps li::before{
+  content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:20px;color:var(--accent);
+  font-weight:700;line-height:1.2;
+}
+.steps b{display:block;font-size:15px;color:var(--brand);margin-bottom:3px}
+.steps p{font-size:13.5px;color:var(--ink-2);margin:0}
+
+/* FAQ */
+.faq details{
+  border:1px solid var(--line);border-radius:var(--radius-m);margin-bottom:10px;background:var(--paper);
+}
+.faq details[open]{border-color:#b9d0e0;box-shadow:var(--shadow-1)}
+.faq summary{
+  cursor:pointer;padding:13px 42px 13px 16px;font-size:15px;font-weight:600;color:var(--ink);
+  position:relative;list-style:none;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";position:absolute;right:16px;top:11px;font-size:20px;color:var(--accent);font-weight:400;
+}
+.faq details[open] summary::after{content:"–"}
+.faq .ans{padding:0 16px 14px;font-size:14px;color:var(--ink-2);border-top:1px dashed var(--line-soft);padding-top:12px}
+
+/* 评论 */
+.comment-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3)}
+.cmt{border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 16px;background:var(--paper)}
+.cmt-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.avatar{
+  width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  font-size:13px;font-weight:700;color:#fff;background:var(--brand);flex-shrink:0;
+}
+.avatar.a2{background:#8a5a1e}
+.avatar.a3{background:#2b6d5c}
+.avatar.a4{background:#5b4a86}
+.cmt-head b{font-size:14px;color:var(--ink)}
+.cmt-head span{font-size:12px;color:var(--ink-3);margin-left:auto}
+.cmt p{font-size:13.5px;color:var(--ink-2);margin:0 0 6px}
+.cmt .ref{font-size:12.5px;color:var(--accent)}
+@media (max-width:640px){.comment-grid{grid-template-columns:1fr}}
+
+/* 资讯 */
+.news-list{list-style:none;padding:0;margin:0}
+.news-list li{
+  padding:13px 0;border-bottom:1px solid var(--line-soft);display:grid;
+  grid-template-columns:1fr auto;gap:12px;align-items:baseline;margin:0;
+}
+.news-list li:last-child{border-bottom:0}
+.news-list h3{font-size:15px;color:var(--ink);margin:0 0 3px}
+.news-list p{font-size:13px;color:var(--ink-3);margin:0}
+.news-list time{font-family:var(--mono);font-size:12.5px;color:var(--accent);white-space:nowrap}
+
+/* 推荐标签 */
+.rec-tags{display:flex;flex-wrap:wrap;gap:9px}
+.rec-tags a{
+  border:1px dashed #b9cfdd;border-radius:999px;padding:6px 14px;font-size:13.5px;
+  color:var(--brand);background:#f8fbfd;
+}
+.rec-tags a:hover{background:var(--brand);color:#fff;border-style:solid;text-decoration:none}
+
+/* 排行榜 */
+.rank-table{width:100%;border-collapse:collapse;font-size:14px}
+.rank-table th,.rank-table td{border-bottom:1px solid var(--line-soft);padding:10px 8px;text-align:left}
+.rank-table th{font-size:12.5px;color:var(--ink-3);font-weight:600;border-bottom:1px solid var(--line)}
+.rank-table td:first-child{font-family:var(--mono);color:var(--accent);font-weight:700;width:40px}
+.rank-table td:last-child{text-align:right;font-family:var(--mono);color:var(--ink-2)}
+.rank-table tr.hl td{background:#f8fbfd}
+
+/* 侧栏 */
+.side-card{
+  border:1px solid var(--line);border-radius:var(--radius-m);padding:16px;background:var(--paper);
+  margin-bottom:var(--space-3);
+}
+.side-card h3{font-size:15px;color:var(--brand);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
+.side-nav{list-style:none;padding:0;margin:0}
+.side-nav li{margin:0}
+.side-nav a{
+  display:block;padding:6px 10px;font-size:13.5px;color:var(--ink-2);border-radius:var(--radius-s);
+  border-left:3px solid transparent;
+}
+.side-nav a:hover{background:var(--paper-2);text-decoration:none;color:var(--brand)}
+.side-nav a.active{background:var(--paper-3);border-left-color:var(--accent);color:var(--brand);font-weight:600}
+.side-card p{font-size:13px;color:var(--ink-3);margin:0 0 8px}
+.side-card p:last-child{margin-bottom:0}
+.mini-stat{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px dashed var(--line-soft)}
+.mini-stat:last-child{border-bottom:0}
+.mini-stat b{font-family:var(--mono);color:var(--brand)}
+@media (max-width:1000px){
+  .layout{grid-template-columns:1fr;gap:var(--space-4)}
+  .side-col{position:static;order:2}
+}
+
+/* 页脚 */
+.site-footer{background:#0c2338;color:#b9c9d6;padding:var(--space-5) 0 var(--space-4);margin-top:var(--space-5)}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 20px}
+.footer-top{display:grid;grid-template-columns:1.3fr 2fr;gap:var(--space-5);padding-bottom:var(--space-4);border-bottom:1px solid rgba(255,255,255,.12)}
+.footer-brand b{color:#fff;font-size:18px;display:block;margin-bottom:6px}
+.footer-brand p{font-size:13.5px;color:#9fb4c5;max-width:32ch;margin-bottom:10px}
+.footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)}
+.footer-cols h4{color:#fff;font-size:14px;margin-bottom:10px}
+.footer-cols ul{list-style:none;padding:0;margin:0}
+.footer-cols li{margin-bottom:6px}
+.footer-cols a{color:#b9c9d6;font-size:13px}
+.footer-cols a:hover{color:#ffd99b}
+.footer-bottom{padding-top:var(--space-3);font-size:12.5px;color:#8ba3b6;display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+.footer-bottom a{color:#9fb4c5}
+@media (max-width:760px){
+  .footer-top{grid-template-columns:1fr}
+  .footer-cols{grid-template-columns:1fr 1fr}
+}
+
+/* 回到顶部 */
+.to-top{
+  position:fixed;right:18px;bottom:18px;z-index:70;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line);background:var(--paper);color:var(--brand);box-shadow:var(--shadow-2);
+  display:grid;place-items:center;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);
+  transition:opacity .2s ease,transform .2s ease,visibility .2s;
+}
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.to-top svg{width:20px;height:20px}
+@media (max-width:560px){.to-top{right:12px;bottom:12px;width:40px;height:40px}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+  .card:hover,.btn:hover{transform:none}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-shell">
+  <div class="notice-bar" role="region" aria-label="站点更新公告">
+    <div class="inner">
+      <span class="notice-tag">更新</span>
+      <span>11月6日新增「全国大学生数学建模冬季赛」报名通道，11月15日 23:59 截止</span>
+      <span class="notice-sep">|</span>
+      <span>摄影单元赛果已公示，<a href="/#updates" >查看复核名单</a></span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/#top" aria-label="每日大赛网站在线入口 首页">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img" aria-label="赛事标识：旗帜与赛道线">
+            <path d="M18 46V18" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+            <path d="M18 18h20l-5 7 5 7H18z" fill="#f2b64c"/>
+            <path d="M40 42h8M40 48h8" stroke="#9fc4dc" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <b>每日大赛网站在线入口</b>
+          <span>DAILY COMPETITION HUB</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mainNav" id="menuToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
+        </svg>
+        <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">打开导航菜单</span>
+      </button>
+
+      <nav class="main-nav" id="mainNav" aria-label="主题导航">
+        <a href="/#overview">赛事概览</a>
+        <a href="/#featured">精选赛题</a>
+        <a href="/#updates">最新更新</a>
+        <a href="/#categories">分类入口</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">参赛指南</a>
+        <a href="/#faq">常见问题</a>
+        <a href="/#rank">赛果榜</a>
+      </nav>
+
+      <form class="search-box" role="search" id="searchForm" aria-label="站内查找赛事">
+        <input type="search" id="searchInput" placeholder="搜赛事、组别、评审…" aria-label="输入赛事关键词">
+        <button type="submit">查找</button>
+      </form>
+    </div>
+    <div class="search-feedback" id="searchFeedback" role="status" aria-live="polite"></div>
+  </header>
+</div>
+
+<main id="top">
+
+  <!-- 首屏 -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-inner">
+      <div>
+        <span class="hero-kicker"><span class="dot" aria-hidden="true"></span>2026 冬季赛季 · 第 45 周赛程在线</span>
+        <h1 id="heroTitle">每日大赛网站在线入口</h1>
+        <p class="hero-desc">把一天里要开赛的项目排在同一张表上：<strong>编程、摄影、数模、设计</strong>四类赛道同步更新报名口与赛果，参赛者可以按组别、评审口径和截止时间横向比对，决定今天投哪一场。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/#updates">查看今日开放报名</a>
+          <a class="btn btn-ghost" href="/#guide">参赛准备清单</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>12</b><span>常设赛道</span></div>
+          <div><b>38</b><span>本月场次</span></div>
+          <div><b>6,240</b><span>已提交作品</span></div>
+          <div><b>11-08</b><span>数据截至</span></div>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="panel art-board">
+          <h4>今日赛程密度</h4>
+          <div class="art-row"><span class="num">01</span><span class="bar" style="width:100%"></span><span class="t">09:00</span></div>
+          <div class="art-row"><span class="num">02</span><span class="bar b2"></span><span class="t">12:30</span></div>
+          <div class="art-row"><span class="num">03</span><span class="bar b3"></span><span class="t">18:00</span></div>
+          <div class="art-row"><span class="num">04</span><span class="bar b4"></span><span class="t">21:00</span></div>
+          <div class="art-row"><span class="num">05</span><span class="bar b2"></span><span class="t">23:59</span></div>
+        </div>
+        <div class="panel art-card">
+          <small>当前开放</small>
+          <b>摄影单元赛</b>
+          <p>命题「城市边缘」<br>投稿截至 11-12</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <div class="content-col">
+
+      <!-- 领域概览 -->
+      <section class="block" id="overview" aria-labelledby="overviewTitle">
+        <div class="block-head">
+          <span class="eyebrow">OVERVIEW</span>
+          <h2 id="overviewTitle">赛事概览：一天里同时在跑的四条赛道</h2>
+          <p>赛道规则、评审节奏和提交格式各不相同，混着看容易踩坑。</p>
+        </div>
+        <div class="overview-grid">
+          <div class="ov-card">
+            <b>算法编程赛</b>
+            <span>在线判题，实时榜单，IOI 赛制与 ACM 赛制并行</span>
+            <span class="fig">3 场 / 周</span>
+          </div>
+          <div class="ov-card">
+            <b>摄影命题赛</b>
+            <span>给定命题，限 72 小时拍摄，评委两轮打分</span>
+            <span class="fig">1 场 / 周</span>
+          </div>
+          <div class="ov-card">
+            <b>数学建模冬季赛</b>
+            <span>三人一队，96 小时成稿，需提交论文与代码附件</span>
+            <span class="fig">11-15 截止</span>
+          </div>
+          <div class="ov-card">
+            <b>平面设计单元</b>
+            <span>主题海报，格式限 PNG/PDF，A2 画布</span>
+            <span class="fig">收稿 214 份</span>
+          </div>
+          <div class="ov-card">
+            <b>短视频赛道</b>
+            <span>60—180 秒，原创音乐需附授权说明</span>
+            <span class="fig">周赛第 45 期</span>
+          </div>
+          <div class="ov-card">
+            <b>数据可视化挑战</b>
+            <span>给定公开数据集，工具不限，附可复现代码</span>
+            <span class="fig">11-09 开题</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 精选推荐 -->
+      <section class="block" id="featured" aria-labelledby="featuredTitle">
+        <div class="block-head">
+          <span class="eyebrow">FEATURED</span>
+          <h2 id="featuredTitle">精选内容推荐：本周值得投的三场</h2>
+          <p>按评审透明度、往届完赛率和奖励兑现记录筛出。</p>
+        </div>
+        <div class="feature-grid">
+          <article class="card card-main">
+            <img src="https://picsum.photos/seed/dc-feature-model/720/400" width="720" height="400" loading="lazy" alt="数学建模冬季赛现场：三人在白板前推导模型公式">
+            <div class="card-body">
+              <div class="meta"><span class="tag">数学建模</span><span>11-15 23:59 截止</span></div>
+              <h3><a href="/#deep">96 小时冬季赛：论文附录比正文更容易丢分</a></h3>
+              <p>去年 312 支队伍里有 47 支因附录缺少复现代码被降档，评审组在答疑帖中明确回复过这条口径，今年仍沿用。</p>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/dc-feature-photo/420/300" width="420" height="300" loading="lazy" alt="摄影命题赛「城市边缘」样片：江边护栏与晨雾">
+            <div class="card-body">
+              <div class="meta"><span class="tag">摄影</span><span>投稿 11-12 截止</span></div>
+              <h3><a href="/#updates">摄影单元「城市边缘」命题解读</a></h3>
+              <p>允许后期裁切与基础调色，禁止合成天空。去年 9 份作品因换天被取消资格。</p>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/dc-feature-code/420/300" width="420" height="300" loading="lazy" alt="算法编程赛界面：终端里滚动着通过提示">
+            <div class="card-body">
+              <div class="meta"><span class="tag">编程</span><span>今晚 21:00 开赛</span></div>
+              <h3><a href="/#rank">第 45 期周赛：三题难度分布实测</a></h3>
+              <p>前两题偏模拟，第三题是区间合并变体。上一期三题在榜选手平均用时 74 分钟。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 最新更新 -->
+      <section class="block" id="updates" aria-labelledby="updatesTitle">
+        <div class="block-head">
+          <span class="eyebrow">UPDATES</span>
+          <h2 id="updatesTitle">最新更新：赛程与规则变动记录</h2>
+          <p>只记录已生效的变动，预告类信息注明生效日期。</p>
+        </div>
+        <ul class="updates">
+          <li>
+            <time datetime="2026-11-07">11-07 16:20</time>
+            <span class="u-main"><b>数学建模冬季赛</b>报名上限从 400 队调整到 500 队，服务器同步扩容</span>
+            <span class="u-tag">规则</span>
+          </li>
+          <li>
+            <time datetime="2026-11-06">11-06 10:05</time>
+            <span class="u-main"><b>摄影单元</b>第二批评委名单公布，新增两位纪实方向摄影师</span>
+            <span class="u-tag">评审</span>
+          </li>
+          <li>
+            <time datetime="2026-11-05">11-05 22:40</time>
+            <span class="u-main"><b>第 44 期编程周赛</b>赛果公示，前三名代码已开放查阅 72 小时</span>
+            <span class="u-tag">赛果</span>
+          </li>
+          <li>
+            <time datetime="2026-11-04">11-04 09:15</time>
+            <span class="u-main"><b>平面设计单元</b>收稿截止延后 48 小时，原因是大文件上传出现超时</span>
+            <span class="u-tag">延期</span>
+          </li>
+          <li>
+            <time datetime="2026-11-02">11-02 14:00</time>
+            <span class="u-main"><b>短视频赛道</b>新增原创音乐授权说明附件，未提交者退回补正</span>
+            <span class="u-tag">提交</span>
+          </li>
+          <li>
+            <time datetime="2026-10-30">10-30 11:30</time>
+            <span class="u-main"><b>数据可视化挑战</b>数据集版本更新到 v2.1，字段说明同步修订</span>
+            <span class="u-tag">数据</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 分类入口 -->
+      <section class="block" id="categories" aria-labelledby="catTitle">
+        <div class="block-head">
+          <span class="eyebrow">CATEGORIES</span>
+          <h2 id="catTitle">分类入口：按类别直接找场次</h2>
+          <p>括号内为当前开放中的场次数。</p>
+        </div>
+        <div class="cat-index">
+          <a href="/#featured">算法编程赛 <em>3</em></a>
+          <a href="/#featured">数据结构专项 <em>1</em></a>
+          <a href="/#featured">数学建模冬季赛 <em>2</em></a>
+          <a href="/#featured">统计建模挑战 <em>1</em></a>
+          <a href="/#featured">摄影命题赛 <em>1</em></a>
+          <a href="/#featured">平面设计单元 <em>2</em></a>
+          <a href="/#featured">短视频赛道 <em>2</em></a>
+          <a href="/#featured">数据可视化 <em>1</em></a>
+          <a href="/#featured">产品原型赛 <em>1</em></a>
+          <a href="/#featured">写作与脚本 <em>1</em></a>
+        </div>
+      </section>
+
+      <!-- 深度解析 -->
+      <section class="block deep" id="deep" aria-labelledby="deepTitle">
+        <div class="block-head">
+          <span class="eyebrow">ANALYSIS</span>
+          <h2 id="deepTitle">深度解析：评审口径比题目难度更影响名次</h2>
+        </div>
+        <p class="lede">把近三期的评分表摊开对照，会发现同一份作品的分数差异主要来自评审项权重，而不是完成度本身。下面三个判断都可以拿公开记录核对。</p>
+
+        <h3><span class="no">01</span>附录缺项是冬季赛最常见的降档原因</h3>
+        <p>冬季赛评分表分四块：模型建立 35 分、求解与验证 30 分、论文规范 20 分、附录与代码 15 分。2026 年 1 月冬季赛发布的技术报告写明，附录块平均得分只有 9.6 分，是四块中最低的；其中「未附可复现代码」出现 47 次，占全部降档记录的 41%。评审组在 2026-02-18 的答疑帖里回复原话是「附录不是加分项，是计分项」。</p>
+        <div class="judge-box">
+          <b>可核对判断</b>
+          <p>附录 15 分拿满的队伍，最终名次平均比附录低于 8 分的队伍高 24 位。这个差距单靠正文写作无法弥补。</p>
+        </div>
+        <p>把这条判断拆开看：一是附录分值占比 15%，二是附录丢分率超过 60%，三是同一批评审在正文块的给分极差只有 7.2 分。三点合起来，附录是性价比最高的检查项。</p>
+
+        <h3><span class="no">02</span>摄影单元的「命题契合」权重在一年内变了两次</h3>
+        <ul class="timeline-list">
+          <li><time datetime="2025-11-20">2025-11-20</time>规则 v2.3：命题契合 40%、技术执行 35%、原创性 25%。</li>
+          <li><time datetime="2026-03-14">2026-03-14</time>规则 v3.0：命题契合下调至 30%，技术执行升到 45%。</li>
+          <li><time datetime="2026-09-02">2026-09-02</time>规则 v3.2：恢复 35/40/25，新增「是否提交原始 RAW」作为技术执行子项。</li>
+        </ul>
+        <p>三次调整后，同一组样片的分数在 v3.0 和 v3.2 下的模拟排序会相差两名。技术执行权重上浮期间，构图工整但命题偏题的作品更容易进终评；v3.2 之后再靠技术分拉分就难了。规则页有逐版对照表，可自行核对。</p>
+
+        <h3><span class="no">03</span>编程周赛的榜单封榜时间决定冲榜策略</h3>
+        <table class="compare-table">
+          <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">榜单封榜时间对比</caption>
+          <thead>
+            <tr><th>对比项</th><th>第 43 期</th><th>第 45 期</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>封榜时点</td><td>结束前 30 分钟</td><td>结束前 45 分钟</td></tr>
+            <tr><td>罚时规则</td><td>每次错误 +20 分钟</td><td>每次错误 +15 分钟</td></tr>
+            <tr><td>第三题通过人数</td><td>9 人</td><td>尚未公布</td></tr>
+            <tr><td>提交上限</td><td>每题 12 次</td><td>每题 15 次</td></tr>
+          </tbody>
+        </table>
+        <p>封榜提前 15 分钟，意味着最后阶段的信息盲区变长。第 43 期数据显示，封榜后有 6 名选手提交了通过代码，其中 4 名完成反超。罚时从 20 分钟降到 15 分钟，则让「先稳一题再冲难题」更划算——错误成本降低，试错次数上限同时放宽到 15 次。</p>
+        <div class="quote-card">评委在 11-05 赛后说明会上的转述：「罚时下调是照搬了其他站的规则，目的是让中档选手别在第一题就弃赛。」这条转述未经书面确认，只作背景参考。</div>
+        <p>争议点在于：有选手认为封榜提前会让榜单失去参考价值，也有观点认为它保护了最后阶段的策略多样性。两种说法目前都缺少对照实验，只有单场数据。</p>
+      </section>
+
+      <!-- 体验指南 -->
+      <section class="block" id="guide" aria-labelledby="guideTitle">
+        <div class="block-head">
+          <span class="eyebrow">GUIDE</span>
+          <h2 id="guideTitle">参赛指南：从注册到提交的六个动作</h2>
+          <p>按实际后台流程排列，每一步都对应一个可检查的结果。</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <div><b>核对组别与报名资格</b><p>冬季赛分本科组与研究生组，同队不得混组。研究生组需上传学生证首页，11-10 前完成可避开审核高峰。</p></div>
+          </li>
+          <li>
+            <div><b>锁定评审口径</b><p>先下载评分表 PDF，确认附录是否计分、原创声明是否必填。摄影单元还需确认 RAW 提交尺寸。</p></div>
+          </li>
+          <li>
+            <div><b>完成组队与信息补全</b><p>三人队需在报名页填第二联系人，手机号须与实名信息一致，否则赛前通知收不到。</p></div>
+          </li>
+          <li>
+            <div><b>测试上传通道</b><p>用 20MB 以内的测试文件先走一遍提交，平面设计单元历史上出现过 48 分钟的超时窗口。</p></div>
+          </li>
+          <li>
+            <div><b>提交后保存回执编号</b><p>回执编号形如 MCM-2026-XXXX。复核申请必须带此编号，缺编号的申诉在 11-18 后不再受理。</p></div>
+          </li>
+          <li>
+            <div><b>盯赛果公示期</b><p>公示 72 小时内可提异议，异议需附原始工程文件，不接受口头说明。</p></div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- FAQ -->
+      <section class="block faq" id="faq" aria-labelledby="faqTitle">
+        <div class="block-head">
+          <span class="eyebrow">FAQ</span>
+          <h2 id="faqTitle">常见问题：报名、组队与赛果</h2>
+        </div>
+        <details>
+          <summary>数学建模冬季赛的报名截止和提交截止是同一天吗？</summary>
+          <div class="ans">不是。报名在 11-15 23:59 关闭，提交截止是 11-21 20:00，中间预留了六天。去年有 3 支队伍误以为报名即等于提交，错过最终上传。</div>
+        </details>
+        <details>
+          <summary>摄影命题赛允许使用手机拍摄吗？</summary>
+          <div class="ans">允许。设备不限，但需在提交页填写器材型号与拍摄时间。规则 v3.2 明确，技术执行评分不看设备档次，只看曝光、对焦与构图完成度。</div>
+        </details>
+        <details>
+          <summary>编程周赛的罚时怎么计算？</summary>
+          <div class="ans">第 45 期起每次错误提交加 15 分钟罚时，通过时间以首次通过提交为准。同一题多次错误只累计错误次数，不重复计算未通过提交的时间。</div>
+        </details>
+        <details>
+          <summary>平面设计单元的大文件上传失败怎么办？</summary>
+          <div class="ans">低于 50MB 可直接上传，超过则用分卷压缩包并在提交页备注分卷数量。11-04 的延期是因为上传服务超时，已恢复，但高峰期仍建议避开 20:00—22:00。</div>
+        </details>
+        <details>
+          <summary>赛果公示期内可以查看其他队伍的作品吗？</summary>
+          <div class="ans">可以。公示页开放全部获奖作品及入围作品，非获奖作品需作者本人授权后可见。异议申请须在公示开始后 72 小时内提交。</div>
+        </details>
+      </section>
+
+      <!-- 用户评论 -->
+      <section class="block" id="comments" aria-labelledby="cmtTitle">
+        <div class="block-head">
+          <span class="eyebrow">VOICES</span>
+          <h2 id="cmtTitle">用户评论：来自参赛者的现场反馈</h2>
+        </div>
+        <div class="comment-grid">
+          <div class="cmt">
+            <div class="cmt-head"><span class="avatar">周</span><b>周启帆</b><span>11-06</span></div>
+            <p>第 44 期第三题的测试数据里有一组 n=1，题干没写边界，我交了两次才过。罚时 20 分钟那次正好把我挤出前五十。</p>
+            <span class="ref">指向：第 44 期编程周赛第三题</span>
+          </div>
+          <div class="cmt">
+            <div class="cmt-head"><span class="avatar a2">林</span><b>林知遥</b><span>11-05</span></div>
+            <p>摄影单元的 RAW 提交项加得挺突然，v3.2 规则 9 月才发，很多老参赛者习惯只交 JPG。建议报名页放一个明显的勾选提醒。</p>
+            <span class="ref">指向：摄影规则 v3.2 技术执行子项</span>
+          </div>
+          <div class="cmt">
+            <div class="cmt-head"><span class="avatar a3">塔</span><b>塔西·艾力</b><span>11-04</span></div>
+            <p>冬季赛扩到 500 队后，答疑群的回复速度明显变慢。10-30 提的附录问题到 11-03 才有人回，不过回答本身挺清楚。</p>
+            <span class="ref">指向：冬季赛报名扩容</span>
+          </div>
+          <div class="cmt">
+            <div class="cmt-head"><span class="avatar a4">陈</span><b>陈默</b><span>11-03</span></div>
+            <p>评委名单里纪实方向那两位的作品我看过，风格偏冷静。命题「城市边缘」今年可能会偏爱克制的画面，纯视觉冲击的稿子未必占优——这只是我的猜测。</p>
+            <span class="ref">指向：摄影第二批评委名单</span>
+          </div>
+          <div class="cmt">
+            <div class="cmt-head"><span class="avatar">郭</span><b>郭熙</b><span>11-02</span></div>
+            <p>短视频赛道的授权说明附件流程太绕，填了表单还要发邮件确认，来回两天。希望能合并成一个提交入口。</p>
+            <span class="ref">指向：短视频原创音乐授权流程</span>
+          </div>
+          <div class="cmt">
+            <div class="cmt-head"><span class="avatar a2">肖</span><b>肖牧</b><span>10-31</span></div>
+            <p>数据可视化 v2.1 的数据字典比 v2.0 好用，字段类型标清楚了。就是样例代码还是 Python 3.8 写的，跑在 3.11 上要改两行。</p>
+            <span class="ref">指向：数据可视化数据集 v2.1</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 相关资讯 -->
+      <section class="block" id="news" aria-labelledby="newsTitle">
+        <div class="block-head">
+          <span class="eyebrow">NEWS</span>
+          <h2 id="newsTitle">相关资讯：赛事与规则动态</h2>
+        </div>
+        <ul class="news-list">
+          <li>
+            <div>
+              <h3><a href="/#deep">冬季赛技术报告发布：附录平均得分 9.6 分</a></h3>
+              <p>报告含四块评分分布、47 条降档记录与评审组答疑摘录。</p>
+            </div>
+            <time datetime="2026-11-07">11-07</time>
+          </li>
+          <li>
+            <div>
+              <h3><a href="/#updates">第 44 期编程周赛前三名代码开放查阅</a></h3>
+              <p>开放窗口 72 小时，至 11-08 22:40 关闭，仅限注册用户浏览。</p>
+            </div>
+            <time datetime="2026-11-05">11-05</time>
+          </li>
+          <li>
+            <div>
+              <h3><a href="/#categories">平面设计单元收稿顺延 48 小时</a></h3>
+              <p>上传服务超时已修复，分卷压缩包提交需在备注中写明分卷数量。</p>
+            </div>
+            <time datetime="2026-11-04">11-04</time>
+          </li>
+          <li>
+            <div>
+              <h3><a href="/#guide">回执编号成为复核申请的必要材料</a></h3>
+              <p>11-18 之后提交的异议若无 MCM 开头回执编号，将不再受理。</p>
+            </div>
+            <time datetime="2026-11-01">11-01</time>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 相关推荐 -->
+      <section class="block" id="related" aria-labelledby="relTitle">
+        <div class="block-head">
+          <span class="eyebrow">RELATED</span>
+          <h2 id="relTitle">相关推荐：常被一起查找的赛项</h2>
+        </div>
+        <div class="rec-tags">
+          <a href="/#featured">算法编程赛周赛报名</a>
+          <a href="/#featured">数学建模冬季赛组队规则</a>
+          <a href="/#featured">摄影命题赛 RAW 提交</a>
+          <a href="/#featured">平面设计 A2 画布规格</a>
+          <a href="/#featured">短视频 60 秒赛道</a>
+          <a href="/#featured">数据可视化可复现代码</a>
+          <a href="/#guide">赛后复核申请流程</a>
+          <a href="/#faq">罚时规则对照</a>
+        </div>
+      </section>
+
+      <!-- 赛果榜（补充板块） -->
+      <section class="block" id="rank" aria-labelledby="rankTitle">
+        <div class="block-head">
+          <span class="eyebrow">RANKING</span>
+          <h2 id="rankTitle">赛果榜：近三期编程周赛前三</h2>
+          <p>按通过题数与罚时排序，数据来自公开榜单快照。</p>
+        </div>
+        <table class="rank-table">
+          <thead>
+            <tr><th>名次</th><th>选手</th><th>赛次</th><th>通过题数</th><th>罚时</th></tr>
+          </thead>
+          <tbody>
+            <tr class="hl"><td>1</td><td>周启帆</td><td>第 44 期</td><td>3</td><td>58</td></tr>
+            <tr><td>2</td><td>肖牧</td><td>第 44 期</td><td>3</td><td>71</td></tr>
+            <tr><td>3</td><td>林知遥</td><td>第 44 期</td><td>3</td><td>96</td></tr>
+            <tr><td>1</td><td>郭熙</td><td>第 43 期</td><td>3</td><td>63</td></tr>
+            <tr><td>2</td><td>陈默</td><td>第 43 期</td><td>3</td><td>80</td></tr>
+            <tr><td>3</td><td>塔西·艾力</td><td>第 43 期</td><td>2</td><td>41</td></tr>
+            <tr><td>1</td><td>肖牧</td><td>第 42 期</td><td>3</td><td>55</td></tr>
+            <tr><td>2</td><td>周启帆</td><td>第 42 期</td><td>3</td><td>67</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+
+    <!-- 侧栏 -->
+    <aside class="side-col" aria-label="辅助导航与信息">
+      <nav class="side-card" aria-label="页内导航">
+        <h3>页内导航</h3>
+        <ul class="side-nav" id="sideNav">
+          <li><a href="/#overview">赛事概览</a></li>
+          <li><a href="/#featured">精选内容推荐</a></li>
+          <li><a href="/#updates">最新更新</a></li>
+          <li><a href="/#categories">分类入口</a></li>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#guide">参赛指南</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#rank">赛果榜</a></li>
+        </ul>
+      </nav>
+
+      <div class="side-card">
+        <h3>今日关键时点</h3>
+        <div class="mini-stat"><span>编程周赛开赛</span><b>21:00</b></div>
+        <div class="mini-stat"><span>摄影投稿截止</span><b>11-12</b></div>
+        <div class="mini-stat"><span>建模报名截止</span><b>11-15</b></div>
+        <div class="mini-stat"><span>设计收稿顺延至</span><b>11-09</b></div>
+      </div>
+
+      <div class="side-card">
+        <h3>评审口径速查</h3>
+        <p>冬季赛四块分值：模型 35、求解 30、规范 20、附录 15。附录不计分是误解，11-07 技术报告已重申。</p>
+        <p>摄影 v3.2 权重为 35/40/25，RAW 提交计入技术执行。</p>
+      </div>
+
+      <div class="side-card">
+        <h3>站内查找提示</h3>
+        <p>输入「建模」「RAW」「罚时」等具体词可直接定位板块；查找无结果时会给出可替代的关键词建议。</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer" id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <b>每日大赛网站在线入口</b>
+        <p>把同一天开赛的编程、摄影、建模与设计场次排在一张表上，让参赛者先看清口径再决定投哪一场。</p>
+        <p style="font-size:12.5px;color:#8ba3b6">页面更新时间：2026-11-08，对应正文「最新更新」中 11-07 的报名扩容与 11-06 的评委名单变动。</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h4>赛事频道</h4>
+          <ul>
+            <li><a href="/#featured">算法编程赛</a></li>
+            <li><a href="/#featured">数学建模冬季赛</a></li>
+            <li><a href="/#featured">摄影命题赛</a></li>
+            <li><a href="/#featured">平面设计单元</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>参赛支持</h4>
+          <ul>
+            <li><a href="/#guide">参赛准备清单</a></li>
+            <li><a href="/#faq">报名与组队问答</a></li>
+            <li><a href="/#deep">评审口径解析</a></li>
+            <li><a href="/#rank">赛果榜</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>信息说明</h4>
+          <ul>
+            <li><a href="/#updates">规则变动记录</a></li>
+            <li><a href="/#news">相关资讯</a></li>
+            <li><a href="/#comments">参赛者评论</a></li>
+            <li><a href="/#related">相关推荐</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>页面内赛程、队伍数、评分为示例数据，用于说明核对方法，实际以各场次公告为准。</span>
+      <span>© 2026 每日大赛网站在线入口 · 内容整理与示例编制</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="回到页面顶部">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+    <path d="M12 19V5M6 11l6-6 6 6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<script>
+(function () {
+  "use strict";
+
+  /* 移动端菜单 */
+  var toggle = document.getElementById("menuToggle");
+  var nav = document.getElementById("mainNav");
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () {
+      var open = nav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    nav.addEventListener("click", function (e) {
+      if (e.target.tagName === "A" && window.innerWidth <= 900) {
+        nav.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  /* 平滑滚动，为吸顶预留偏移 */
+  var stickyShell = document.querySelector(".sticky-shell");
+  function scrollToTarget(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var offset = stickyShell ? stickyShell.getBoundingClientRect().height + 10 : 110;
+    var top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: top, behavior: "smooth" });
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="/#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute("href").slice(2);
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    scrollToTarget(id);
+    if (history.replaceState) history.replaceState(null, "", "/#" + id);
+  });
+
+  /* 回到顶部 */
+  var toTop = document.getElementById("toTop");
+  function onScroll() {
+    if (!toTop) return;
+    if (window.pageYOffset > 480) {
+      toTop.classList.add("show");
+    } else {
+      toTop.classList.remove("show");
+    }
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+  if (toTop) {
+    toTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  /* 侧栏滚动高亮 */
+  var sideLinks = Array.prototype.slice.call(document.querySelectorAll("#sideNav a"));
+  var sections = sideLinks.map(function (a) {
+    var id = a.getAttribute("href").slice(2);
+    return document.getElementById(id);
+  }).filter(Boolean);
+
+  if ("IntersectionObserver" in window && sections.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var id = entry.target.id;
+        sideLinks.forEach(function (a) {
+          var on = a.getAttribute("href") === "/#" + id;
+          a.classList.toggle("active", on);
+          if (on) a.setAttribute("aria-current", "true");
+          else a.removeAttribute("aria-current");
+        });
+      });
+    }, { rootMargin: "-120px 0px -60% 0px", threshold: 0 });
+    sections.forEach(function (s) { io.observe(s); });
+  }
+
+  /* 本地查找 */
+  var form = document.getElementById("searchForm");
+  var input = document.getElementById("searchInput");
+  var feedback = document.getElementById("searchFeedback");
+
+  var searchIndex = [
+    { key: "冬季赛 建模 数学建模 报名 附录", id: "deep", label: "数学建模冬季赛深度解析" },
+    { key: "摄影 命题赛 RAW 规则 城市边缘", id: "updates", label: "摄影单元规则与评委更新" },
+    { key: "编程 周赛 罚时 封榜 第45期", id: "rank", label: "编程周赛赛果榜" },
+    { key: "平面设计 平面设计单元 画布 A2 收稿", id: "categories", label: "平面设计分类入口" },
+    { key: "短视频 授权 原创音乐", id: "updates", label: "短视频赛道提交规则" },
+    { key: "数据可视化 数据集 复现", id: "overview", label: "数据可视化挑战概览" },
+    { key: "参赛 指南 回执 复核 组队", id: "guide", label: "参赛指南" },
+    { key: "FAQ 常见问题 截止", id: "faq", label: "常见问题" },
+    { key: "评论 反馈 评委", id: "comments", label: "用户评论" },
+    { key: "资讯 动态 公示", id: "news", label: "相关资讯" }
+  ];
+
+  function normalize(s) {
+    return (s || "").toLowerCase().replace(/\s+/g, "");
+  }
+
+  function runSearch(q) {
+    var query = normalize(q);
+    if (!query) {
+      feedback.textContent = "输入赛事名称、组别或规则关键词，例如「建模 附录」「摄影 RAW」。";
+      return;
+    }
+    var hits = searchIndex.filter(function (item) {
+      return normalize(item.key).indexOf(query) !== -1 || normalize(item.label).indexOf(query) !== -1;
+    });
+    if (hits.length === 0) {
+      feedback.textContent = "没有找到与「" + q + "」对应的条目，可试试「建模」「摄影」「罚时」「复核」等更短的关键词。";
+      return;
+    }
+    var first = hits[0];
+    feedback.textContent = "找到 " + hits.length + " 条相关条目，已定位到「" + first.label + "」。";
+    scrollToTarget(first.id);
+  }
+
+  if (form && input) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      runSearch(input.value);
+    });
+  }
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "每日大赛网站在线入口",
+  "inLanguage": "zh-CN",
+  "description": "每日大赛网站在线入口提供每日赛事赛程、报名入口与赛果查询，覆盖编程、设计、摄影、数学建模等赛事，含规则解析与参赛准备清单。",
+  "about": [
+    { "@type": "Thing", "name": "算法编程赛" },
+    { "@type": "Thing", "name": "数学建模冬季赛" },
+    { "@type": "Thing", "name": "摄影命题赛" },
+    { "@type": "Thing", "name": "平面设计单元" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "数学建模冬季赛的报名截止和提交截止是同一天吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不是。报名在11月15日23:59关闭，提交截止是11月21日20:00，中间预留六天。去年有3支队伍误以为报名即等于提交，错过最终上传。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "摄影命题赛允许使用手机拍摄吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "允许。设备不限，但需在提交页填写器材型号与拍摄时间。规则v3.2明确，技术执行评分不看设备档次，只看曝光、对焦与构图完成度。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "编程周赛的罚时怎么计算？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "第45期起每次错误提交加15分钟罚时，通过时间以首次通过提交为准。同一题多次错误只累计错误次数，不重复计算未通过提交的时间。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "平面设计单元的大文件上传失败怎么办？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "低于50MB可直接上传，超过则用分卷压缩包并在提交页备注分卷数量。11月4日的延期是因为上传服务超时，已恢复，但高峰期仍建议避开20:00至22:00。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "赛果公示期内可以查看其他队伍的作品吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "可以。公示页开放全部获奖作品及入围作品，非获奖作品需作者本人授权后可见。异议申请须在公示开始后72小时内提交。"
+      }
+    }
+  ]
+}
+</script>
+
+</body>
+            </html>
